@@ -1,0 +1,12 @@
+.profile-thumbnail {
+    position: absolute;
+    left: 2.5rem;
+}
+.profile-header {
+    min-height: 260px;
+    margin-left: 280px;
+}
+.posts li{
+     list-style-type:none;
+}
+

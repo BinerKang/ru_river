@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.biner.ru.mapper.UserMapper">
+
+	<select id="selectById" resultType="com.biner.ru.model.User">
+		SELECT 
+			u.id, 
+			u.age, 
+			u.email, 
+			u.nick_name nickName, 
+			u.pass_word passWord, 
+			u.reg_time regTime, 
+			u.user_name userName 
+		FROM t_user_info u where u.id = #{id}
+	</select>
+	
+	
+	<select id="selectOne" resultType="user">
+		SELECT 
+			u.id, 
+			u.telphone, 
+			u.gender,
+			u.password, 
+			u.token,
+			u.user_nick_name userNickName, 
+			u.user_real_name userRealName, 
+			u.os_type_pa osTypePa, 
+			u.os_type_bu osTypeBu, 
+			u.registration_id_pa registrationIdPa, 
+			u.registration_id_bu registrationIdBu, 
+			u.address,
+			u.user_head_photo userHeadPhoto,
+			u.id_card_number idCardNumber,
+			u.nation,
+			u.id_card_address idCardAddress,
+			u.sign_organization signOrganization,
+			u.expiry_date expiryDate,
+			u.birth,
+			u.pa_user_id paUserId,
+			u.bu_user_id buUserId
+		FROM t_user_info u where 1 = 1
+		<if test="null != item.id"> and u.id = #{item.id}</if>
+		<if test="null != item.userRealName"> and u.user_real_name = #{item.userRealName}</if>
+		<if test="null != item.telphone"> and u.telphone = #{item.telphone}</if>
+		<if test="null != item.token"> and u.token = #{item.token}</if>
+		<if test="null != item.password"> and u.password = #{item.password}</if>
+	</select>
+
+</mapper>
