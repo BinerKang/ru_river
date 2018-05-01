@@ -23,7 +23,6 @@ $(function(){
         	});
         },
         mounted: function() {
-        	
         },
         methods: {
             

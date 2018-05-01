@@ -308,7 +308,7 @@ $(function () {
 			}
 		},
 		collide: function() {
-			var flag = (this.x > Paddle.x && this.x < (Paddle.x + Paddle.w) && this.y < Paddle.y && this.y > (Paddle.y - this.r));
+			var flag = (this.x > (Paddle.x - this.r) && this.x < (Paddle.x + Paddle.w + this.r) && this.y < Paddle.y && this.y > (Paddle.y - this.r));
 			if (flag) {
 				this.sx = 7 * (this.x - (Paddle.x + Paddle.w / 2)) / Paddle.w;
 				this.sy = -this.sy;
@@ -389,7 +389,5 @@ $(function () {
 		}
 	};
 	
-	window.onload = function() {
-		Game.setup();
-	}
+	Game.setup();
 });
