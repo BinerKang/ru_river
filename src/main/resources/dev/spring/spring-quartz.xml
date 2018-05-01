@@ -17,48 +17,37 @@
     http://www.springframework.org/schema/mvc
     http://www.springframework.org/schema/mvc/spring-mvc-4.2.xsd">
 
-	<!-- 上传资料到核心影像系统定时器 -->
-	<bean id="uploadToECMTask" class="com.foton.custom.task.UploadToECMTask"></bean>
-	<bean id="uploadToECMJobDetail"
-		class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
-		<property name="jobClass">
-			<value>com.foton.custom.common.MyDetailQuartzJobBean</value>
-		</property>
-		<property name="jobDataAsMap">
-			<map>
-				<entry key="targetObject" value="uploadToECMTask" />
-				<entry key="targetMethod" value="uploadToECM" />
-			</map>
-		</property>
-	</bean>
-	<bean id="uploadToECMTrigger"
-		class="org.springframework.scheduling.quartz.CronTriggerFactoryBean"
-		lazy-init="true">
-		<property name="jobDetail">
-			<ref bean="uploadToECMJobDetail" />
-		</property>
-		<property name="cronExpression" value="${quartz.job.time.uploadToECM}"></property>
-	</bean>
+	<!-- 要执行任务的任务类。 -->
+    <bean id="testQuartz" class="com.biner.ru.task.TestTaskRun"></bean>
+    <!-- 将需要执行的定时任务注入JOB中。 -->
+    <bean id="testJob" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="testQuartz"></property>
+        <!-- 任务类中需要执行的方法 -->
+        <property name="targetMethod" value="doSomething"></property>
+        <!-- 上一次未执行完成的，要等待有再执行。 -->
+        <property name="concurrent" value="false"></property>
+    </bean>
 
-
-	<!-- 执行工厂类 -->
-	<bean id="schedulerFactory" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
-		<property name="configLocation" value="classpath:quartz.properties"/>
-		<property name="dataSource" ref="mysqlDataSource"></property>
-		<property name="applicationContextSchedulerContextKey" value="applicationContext" />
-		<property name="triggers">
-			<list>
-			<ref bean="sychrolizeTaskTrigger" />
-				<ref bean="uploadToECMTrigger" />
-			</list>
-		</property>
-		
-		 <property name="quartzProperties"> 
-	   	   <props>
-		   <!-- 跳过更新检查 -->
-		   <prop key="org.quartz.scheduler.skipUpdateCheck">true</prop> 
-		   </props>
-	   </property>
-	</bean>
+    <!-- 基本的定时器，会绑定具体的任务。 -->
+	<bean id="testTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">  
+        <property name="jobDetail" ref="testJob" />  
+        <property name="cronExpression">   
+            <value>${quartz.job.time.testTask}</value>  
+        </property>  
+    </bean>  
+	
+    <bean id="schedulerFactoryBean" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="triggers">
+            <list>
+                <!-- <ref bean="testTrigger"></ref> -->
+            </list>
+        </property>
+        <property name="quartzProperties"> 
+	   	    <props>
+		   		<!-- 跳过更新检查 -->
+		    	<prop key="org.quartz.scheduler.skipUpdateCheck">true</prop> 
+		    </props>
+	    </property>
+    </bean>
 
 </beans>

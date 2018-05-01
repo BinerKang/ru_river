@@ -7,6 +7,9 @@
     margin-left: 280px;
 }
 .posts li{
-     list-style-type:none;
+    list-style-type:none;
+}
+a {
+	cursor: pointer ;
 }
 

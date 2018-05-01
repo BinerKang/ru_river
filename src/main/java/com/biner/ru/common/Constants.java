@@ -3,6 +3,8 @@ package com.biner.ru.common;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 
 public class Constants {
@@ -20,6 +22,10 @@ public class Constants {
 	public static String MQ_USERNAME;
 	
 	public static String MQ_PASSWORD;
+	
+	public static String FREEGEOIP_URL;
+	
+	public static Map<String, String> PROVINCE_CODE;
 	
 	public static int MQ_PORT = 5672;
 	
@@ -42,7 +48,15 @@ public class Constants {
 		IS_ENCRYPT = Boolean.parseBoolean(configProperties.getProperty("is_encrypt", "false").trim());
 		NEED_KICK = Boolean.parseBoolean(configProperties.getProperty("needKick", "true").trim());
 		DES_KEY = configProperties.getProperty("des.key", "biner_ru").trim();
+		FREEGEOIP_URL = configProperties.getProperty("freegeoip.url").trim();
 		
+		PROVINCE_CODE = new HashMap<String, String>();
+		String[] provinceArr = configProperties.getProperty("province.code").trim().split(";"); 
+		String[] code = null;
+		for (String prov : provinceArr) {
+			code = prov.split(",");
+			PROVINCE_CODE.put(code[0], code[1]);
+		}
 	}
 	
 	public static Properties getProperties(String filePath) {

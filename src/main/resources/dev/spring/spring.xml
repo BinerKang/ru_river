@@ -25,7 +25,4 @@
 	<import resource="classpath:spring/spring-mybatis.xml"/>
 	<!-- <import resource="classpath:spring/spring-quartz.xml"/>  -->
 	
-	<!-- 异步执行器 -->
-	<task:annotation-driven executor="asyncExecutor" />
-	<task:executor id="asyncExecutor" pool-size="10-100" queue-capacity="10"/>
 </beans>

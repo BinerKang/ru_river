@@ -9,6 +9,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.biner.ru.common.Constants;
 import com.biner.ru.common.MapResult;
+import com.biner.ru.common.ParamThreadLocal;
 import com.biner.ru.common.RedisKeyConstants;
 import com.biner.ru.util.CodeMsg;
 import com.biner.ru.util.RedisClient;
@@ -22,7 +23,7 @@ public class TokenInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {  
     	
     	
-	    	String token = com.biner.ru.common.ParamThreadLocal.get().get("token");
+	    	String token = ParamThreadLocal.get().get("token");
 	    	
 	    	if(StringUtils.isNotEmpty(token)){
 	    		// 从redis里查询有无该token
