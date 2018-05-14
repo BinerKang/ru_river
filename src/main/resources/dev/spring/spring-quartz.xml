@@ -37,6 +37,10 @@
     </bean>  
 	
     <bean id="schedulerFactoryBean" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="configLocation" value="classpath:quartz.properties"/>
+        <!-- 无法写入数据库，因此先不用 
+		<property name="dataSource" ref="mysqlDataSource"></property>
+		<property name="applicationContextSchedulerContextKey" value="applicationContext" /> -->
         <property name="triggers">
             <list>
                 <!-- <ref bean="testTrigger"></ref> -->
