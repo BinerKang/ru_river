@@ -24,6 +24,7 @@
 		<property name="username" value="${mysql.username}" />
 		<property name="password" value="${mysql.password}" />
 		<property name="defaultAutoCommit" value="false" />
+		<!-- 要考虑下数据库的最大连接数 -->
 		<property name="maxActive" value="100" />
 		<property name="initialSize" value="10" />
 		<property name="maxWait" value="60000" />

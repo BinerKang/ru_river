@@ -87,6 +87,29 @@ JENKINS_GROUP=root
 3.重启Jenkins
 service Jenkins restart
 
+Jenkis脚本模板*******************
+#!/bin/bash 
+whoami
+export BUILD_ID=dontkillme #必须加  
+/usr/local/tomcat-8.0.51/bin/shutdown.sh
+TOMCATTHREAD=`ps aux | grep 'tomcat' | grep -v grep`  
+if test -z "$TOMCATTHREAD"  
+then  
+   echo "TOMCAT NOT START"  
+else  
+    THREADLIST=(${TOMCATTHREAD// / })  
+    PID=${THREADLIST[1]}  
+    kill -9 $PID  
+    sleep 3s  
+fi  
+   cd /usr/local/tomcat-8.0.51/webapps  
+   rm -f ru_river.war  
+   rm -rf ru_river  
+   cp /var/lib/jenkins/workspace/ru_river/target/ru_river.war /usr/local/tomcat-8.0.51/webapps/
+   /usr/local/tomcat-8.0.51/bin/startup.sh
+   sleep 5s  
+*****************************
+
 
 ***********************
 https://blog.csdn.net/zh520qx/article/details/55669142 配置maven部署   
