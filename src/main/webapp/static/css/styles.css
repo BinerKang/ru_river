@@ -12,4 +12,8 @@
 a {
 	cursor: pointer ;
 }
-
+.hidden_text {
+	white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}

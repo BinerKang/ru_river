@@ -29,6 +29,8 @@ public class Constants {
 	
 	public static int MQ_PORT = 5672;
 	
+	public static String ADMINSTRATOR_MAIL;
+	
 	/**
 	 * redis相关信息
 	 */
@@ -57,6 +59,7 @@ public class Constants {
 			code = prov.split(",");
 			PROVINCE_CODE.put(code[0], code[1]);
 		}
+		ADMINSTRATOR_MAIL = configProperties.getProperty("administrator.mail").trim();
 	}
 	
 	public static Properties getProperties(String filePath) {

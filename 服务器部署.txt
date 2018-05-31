@@ -212,7 +212,8 @@ chmod 777 /etc/init.d/tomcat
 chkconfig --add tomcat
 chkconfig tomcat on
 
-http://114.115.183.133:8080/
+设置tomcat指向80端口，vi /usr/local/tomcat-8.0.51/conf/server.xml
+http://114.115.183.133/
 
 =========================
 安装maven
