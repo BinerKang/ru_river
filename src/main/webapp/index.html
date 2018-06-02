@@ -10,12 +10,12 @@
 	<link rel="shortcut icon" href="static/images/favicon.ico" type="image/x-icon">
 	<link rel="icon" href="static/images/favicon.ico" type="image/x-icon">
 	<link rel="stylesheet" type="text/css" href="static/css/styles.css">
+	<link rel="stylesheet" type="text/css" href="static/css/spin.css">
 	<link rel="stylesheet" type="text/css" href="static/css/bootstrap.min.css">
 	<script type="text/javascript" src="static/js/jquery.min.js"></script>
+	<script type="text/javascript" src="static/js/require1k.min.js" data-main="./pages/index"></script>
 	<script type="text/javascript" src="static/js/bootstrap.min.js"></script>
-	<script type="text/javascript" src="static/js/vue-router.min.js"></script>
 	<script type="text/javascript" src="static/js/vue.min.js"></script>
-	<script type="text/javascript" src="pages/index.js"></script>
 </head>
 
 <body class="body">
@@ -29,7 +29,7 @@
 		                <span class="icon-bar"></span>
 		                <span class="icon-bar"></span>
 		            </button>
-		            <a class="navbar-brand" href="">主页</a>
+		            <a @click="goToHome" class="navbar-brand" >主页</a>
 		        </div>
 		        <div class="navbar-collapse collapse">
 		            <ul class="nav navbar-nav">
@@ -42,53 +42,24 @@
 		                    <a> 退出  </a>
 		                </li>
 		                <li v-else >
-		                   <li> <a> 登录  </a></li>
-		                   <li> <a> 注册  </a></li>
+		                   <li> 
+		                   		<router-link to="/login" class="navbar-brand" > 登录  </router-link>
+		                   </li>
+		                   <li> 
+		                   		<router-link to="/register" class="navbar-brand" > 注册 </router-link>
+		                   </li>
 		                </li>
 		                
 		            </ul>
 		        </div>
-		
 		    </div>
 		</div>
+		<div id="overlay"></div>
+		<!-- 对应的组件内容渲染到router-view中 -->
+		<transition name="fade" mode="out-in">
+    		<router-view></router-view>
+    	</transition>
 		
-		<div class="container">
-			<div style="height: 40" class="page-header" >
-			    <h2 v-if="ipLocation">你好，{{ ipLocation }} 的朋友。挑战一下吧。</h2>
-			</div>
-			<div class="row" >
-				<div class="col-sm-6">
-					<div align="center">
-						<canvas id="canvas" width="408" height="250">
-					        Download Chrome to play this game now!
-					    </canvas>
-						<p> 利用左右键或鼠标控制 </p>
-					</div>
-				</div>
-				<div class="col-sm-6" >
-					<div align="left">
-						<h4 style="border-bottom: 1px solid #e3e3f3;padding-bottom: 5px;">
-							排行榜 <small>Canvas弹球</small>
-						</h4>
-						<table class="table">
-						  <thead>
-						    <tr>
-						      <th><span class="glyphicon glyphicon-sort-by-attributes-alt"></span> 排名</th>
-						      <th><span class="glyphicon glyphicon-user"></span> 玩家</th>
-						      <th><span class="glyphicon glyphicon-heart">分数</span></th>
-						    </tr>
-						  </thead>
-						  <tbody>
-						    <tr class="active">
-						      <td><span class="badge">1</span></td>
-						      <td><span>效益2asdfasdfsdgdfhfjh          ert</span></td>
-						      <td><span>1098</span></td></tr>
-						  </tbody>
-						</table>
-					</div>
-				</div>
-			</div>
-		</div>
 	</div>
-	<script type="text/javascript" src="pages/game.js"></script>
+	
 </body>

@@ -1,31 +1,32 @@
-$(function(){
-	new Vue({
-        el: '#app',
-        data: {
-        	logged: false,
-        	ipLocation: '',
-        },
-        created: function() {
-        	var self = this;
-        	$.ajax({
-        		async: true,
-        		url: 'common/token/getIpLocation',
-        		dataType: 'json',
-        		success: function(res) {
-        			var result = res.result;
-        			if (result.code == 0) {
-        				self.ipLocation = result.data.province;
-        			}
-        		},
-        		error: function(){
-        			alert('请求异常');
-        		}
-        	});
-        },
-        mounted: function() {
-        },
-        methods: {
-            
-        }
- 	})	
+
+var VueRouter = require('../static/js/vue-router.min');
+var routes = require("./routes");
+var router = new VueRouter({
+	routes: routes
 });
+new Vue({
+    el: '#app',
+    router: router,  // 注入到根实例中
+    data: {
+    	logged: false,
+    	
+    },
+    created: function() {
+    	
+    },
+    mounted: function() {
+    },
+    methods: {
+    	goToHome: function(){
+    		// 为了对应canvas加载不出来，需要刷新当前页
+			sessionStorage.setItem('needRefresh', true);
+			this.$router.push("/");
+		},
+    }
+});
+Vue.directive('title', {
+  inserted: function (el, binding) {
+    document.title = el.innerText
+    el.remove()
+  }
+})

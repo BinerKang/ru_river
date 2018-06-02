@@ -6,5 +6,7 @@ encoding//src/main/resources/dev/config.properties=UTF-8
 encoding//src/main/resources/dev/log4j.properties=UTF-8
 encoding//src/main/resources/dev/quartz.properties=UTF-8
 encoding//src/main/webapp/index.html=UTF-8
+encoding//src/main/webapp/pages/home/home.html=UTF-8
+encoding//src/main/webapp/pages/register/register.html=UTF-8
 encoding//src/test/java=UTF-8
 encoding/<project>=UTF-8

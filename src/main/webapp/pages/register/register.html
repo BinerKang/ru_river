@@ -1,0 +1,57 @@
+<main-layout>
+	<div hidden="true" v-title>注册</div>
+    <div class="container">
+      <div align="center" style="width: 60%" >
+      	<div class="alert alert-warning hidden" id="warn_div">
+		    <a href="#" class="close" data-dismiss="alert">
+		        &times;
+		    </a>
+		    <strong>警告!</strong>
+		</div>
+      	<form class="form-horizontal" role="form">
+		  <div class="form-group has-feedback" id="username_div">
+		    <label class="col-sm-2 control-label has-feedback" for="username">用户名</label>
+		    <div class="col-sm-10">
+		      <input type="text" class="form-control" v-model="username" 
+		      	@keyup="checkUsername" placeholder="请输入用户名，长度4~12位" maxlength="12">
+		      <span class="glyphicon form-control-feedback"></span> 
+		    </div>
+		  </div>
+		  <div class="form-group has-feedback" id="password_div">
+		    <label class="col-sm-2 control-label" for="password">输入密码</label>
+		    <div class="col-sm-10">
+		      <input type="password" class="form-control" v-model="password"
+		      	@keyup="checkPassword" placeholder="请输入密码，由字母、数字、特殊字符组成，长度6~16位" maxlength="16">
+		      <span class="glyphicon form-control-feedback"></span> 	
+		    </div>
+		  </div>
+		  <div class="form-group has-feedback" id="password2_div">
+		    <label class="col-sm-2 control-label" for="password2">确认密码</label>
+		    <div class="col-sm-10">
+		      <input type="password" class="form-control" v-model="password2" 
+		      	@keyup="checkPassword2" placeholder="请再次输入密码" maxlength="16">
+		      <span class="glyphicon form-control-feedback"></span> 
+		    </div>
+		  </div>
+		  <div class="form-group has-feedback" id="mail_div">
+		    <label class="col-sm-2 control-label" for="mail">邮箱</label>
+		    <div class="col-sm-10">
+		      <input type="text" class="form-control" v-model="mail"
+		       @keyup="checkMail" placeholder="请输入邮箱地址" maxlength="32">
+		      <span class="glyphicon form-control-feedback"></span> 
+		    </div>
+		  </div>
+		  <div class="form-group">
+		  	<div class="row">
+		  		<div class="col-sm-3 col-md-offset-3">
+	   		    	<button type="button" @click="register" id="registerBtn" class="btn btn-primary" disabled="disabled">注册</button>
+	   		    </div>
+	   		    <div class="col-sm-3">
+			    	<button type="button" class="btn btn-primary" @click="goToHome">取消</button>
+			    </div>
+		  	</div>
+		  </div>
+		</form>
+	  </div>
+	</div>
+</main-layout>

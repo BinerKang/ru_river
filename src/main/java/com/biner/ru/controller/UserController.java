@@ -24,6 +24,13 @@ public class UserController {
 	@RequestMapping("/token/register")
 	public void register(HttpServletRequest request, HttpServletResponse response) {
 		MapResult result = null;
+		try {
+			Thread.sleep(3000);
+			result = new MapResult();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		ResponseUtil.outputJSONResponseEncrypt(request, response, result);
 	}
 
