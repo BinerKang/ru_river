@@ -10,11 +10,12 @@ module.exports = {
 			password: '',
 			password2: '',
 			mail: '',
+			code: '',
 			usernameFlag: false,
 			passwordFlag: false,
 			password2Flag: false,
 			mailFlag: false,
-			
+			codeFlag: false,
 		};
 	},
 	
@@ -25,6 +26,10 @@ module.exports = {
 	},
 	
 	methods: {
+		changeImg : function(){
+		    var img = document.getElementById("img"); 
+		    img.src = "authImage?date=" + new Date().getTime();
+		},
 		goToHome: function(){
 			// 对应canvas不显示
 			sessionStorage.setItem('needRefresh', true);
@@ -65,6 +70,12 @@ module.exports = {
 			var self = this;
 			self.mailFlag = /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/.test(self.mail);
 			self.hintForm("mail_div", self.mailFlag);
+			self.enableRegister();
+		},
+		checkCode: function() {
+			var self = this;
+			self.codeFlag = self.code.length == 4;
+			self.hintForm("code_div", self.codeFlag);
 			self.enableRegister();
 		},
 		hintForm: function(eleId, flag) {

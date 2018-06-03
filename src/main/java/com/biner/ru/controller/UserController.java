@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.biner.ru.common.MapResult;
+import com.biner.ru.util.CodeMsg;
 import com.biner.ru.util.ResponseUtil;
 import com.biner.ru.service.UserService;
 
@@ -25,11 +26,10 @@ public class UserController {
 	public void register(HttpServletRequest request, HttpServletResponse response) {
 		MapResult result = null;
 		try {
-			Thread.sleep(3000);
+			
 			result = new MapResult();
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		} catch (Exception e) {
+			result = new MapResult(CodeMsg.SERVER_EXCEPTION, "请求异常");
 		}
 		ResponseUtil.outputJSONResponseEncrypt(request, response, result);
 	}

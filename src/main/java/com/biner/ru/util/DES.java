@@ -49,7 +49,7 @@ public class DES {
 	public static void main(String[] args) {
 		try {
 			String plaintext = "中文";
-			String key = "FOTONCTM";// 密码必须为8位
+			String key = "ru_river";// 密码必须为8位
 			String ciphertext = encryptDES(plaintext, key);
 			System.out.println("明文：" + plaintext);
 			System.out.println("密钥：" + key);

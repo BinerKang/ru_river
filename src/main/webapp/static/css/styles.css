@@ -29,4 +29,8 @@ a {
     height: 100%;  
     z-index: 100; /* 此处的图层要大于页面 */  
     display:none;  
-}  
+}
+.code-img {
+	width: 80px;
+	cursor: pointer;
+}

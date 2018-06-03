@@ -31,9 +31,8 @@ public class UserService {
 
 	/**
 	 * 注册用户方法
-	 *
 	 * @author KangBinbin
-	 * @date 2017-12-21
+	 * @date 2018-06-03
 	 */
 	public synchronized MapResult register(String telphone, String verifyCode, String password, String osType, String registrationId,
 			String appType) {
