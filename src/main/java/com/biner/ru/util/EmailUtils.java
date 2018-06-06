@@ -32,6 +32,7 @@ public class EmailUtils {
 	
 	@Async
 	public void sendEmail(String to, String title, String content) {
+		logger.info("Sent email begin....");
 		// 获取系统属性
 		Properties properties = System.getProperties();
 		// 设置邮件服务器
@@ -43,6 +44,7 @@ public class EmailUtils {
 	    	sf.setTrustAllHosts(true);
 	    	properties.put("mail.smtp.ssl.enable", "true");
 	    	properties.put("mail.smtp.ssl.socketFactory", sf);
+	    	logger.info(PASSWORD_QQ);
 	    	// 获取默认的 Session 对象。
 	    	Session session = Session.getDefaultInstance(properties, new Authenticator(){
 	    		public PasswordAuthentication getPasswordAuthentication() {
@@ -64,11 +66,11 @@ public class EmailUtils {
  
 	    	// 发送消息
 	    	Transport.send(message);
-	    	logger.info("Sent message successfully....");
-	    }catch (MessagingException mex) {
-	    	mex.printStackTrace();
+	    	logger.info("Sent email successfully....");
+	    } catch (MessagingException mex) {
+	    	logger.info("Sent email haas error", mex);
 	    } catch (GeneralSecurityException e) {
-			e.printStackTrace();
+	    	logger.info("Sent email haas error", e);
 		}
 	}
 	
