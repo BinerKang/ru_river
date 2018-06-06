@@ -1,13 +1,12 @@
 package com.biner.ru.service;
 
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Vector;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONObject;
@@ -18,6 +17,7 @@ import com.biner.ru.model.Score;
 import com.biner.ru.util.AESUtils;
 import com.biner.ru.util.CodeMsg;
 import com.biner.ru.util.HttpUtils;
+import com.biner.ru.webSocket.SpringWebSocketHandler;
 
 @Service
 public class CommonService {
@@ -26,8 +26,15 @@ public class CommonService {
 	// 将排名缓存在内存中，避免每次查询数据库
 	private static Vector<Score> scores = new Vector<Score>();
 	
+	private final static int SCORE_PAGE_SIZE = 5;
+	
 	@Autowired
 	private ScoreMapper scoreMapper;
+	
+	@Bean//这个注解会从Spring容器拿出Bean
+    public SpringWebSocketHandler webSocketHandler() {
+        return new SpringWebSocketHandler();
+    }
 	
 	public MapResult getHomeInfo(String ip) {
 		MapResult result = null;
@@ -51,7 +58,7 @@ public class CommonService {
 			Score sc = new Score();
 			sc.setType("1");
 			sc.setPageNo(0);
-			sc.setPageSize(5);
+			sc.setPageSize(SCORE_PAGE_SIZE);
 			try {
 				scores = scoreMapper.getAllRank(sc);
 			} catch (Exception e) {
@@ -72,11 +79,19 @@ public class CommonService {
 	}
 	
 	public MapResult recordScore(String score, String userId) {
+		int scInt = Integer.parseInt(score);
 		Score sc = new Score();
 		sc.setUserId(Long.parseLong(userId));
-		sc.setScore(Integer.parseInt(score));
+		sc.setScore(scInt);
 		sc.setType("1");
 		scoreMapper.save(sc);
+		if (scInt > scores.get(scores.size() - 1).getScore()) {// 推送给前端刷新
+			//TODO 直接操作vector，不从数据库拿
+			sc.setPageNo(0);
+			sc.setPageSize(SCORE_PAGE_SIZE);
+			scores = scoreMapper.getAllRank(sc);
+			webSocketHandler().sendMessageToAll(JSONObject.toJSONString(scores));
+		}
 		return new MapResult();
 	}
 }

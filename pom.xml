@@ -62,7 +62,16 @@
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-aop</artifactId>
 		</dependency>
-
+		<!-- 使用spring websocket依赖的jar包 -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-websocket</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-messaging</artifactId>
+        </dependency>
+        
 		<!--spring-aop依赖 -->
 		<dependency>
 			<groupId>org.aspectj</groupId>
@@ -75,7 +84,7 @@
 			<artifactId>jackson-databind</artifactId>
 			<version>2.4.6</version>
 		</dependency>
-
+		
 		<!--Mybatis -->
 		<dependency>
 			<groupId>org.mybatis</groupId>

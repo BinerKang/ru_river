@@ -7,7 +7,8 @@ module.exports = {
 		return {
 			ipLocation: '',
 			user: '',
-			scores: ''
+			scores: '',
+			websocket: null
 		};
 	},
 	
@@ -45,16 +46,54 @@ module.exports = {
 	mounted: function(){
     	var game = require('../game');
 		game.setup();
+		var self = this;
+		self.openWebSocket();
 	},
 	
 	methods: {
 		changePage: function(type){
 			$("#myModalCloseBtn").click();
 			if(type){
-				this.$router.push("/register");
-			} else {
 				this.$router.push("/login");
+			} else {
+				this.$router.push("/register");
 			}
+		},
+		openWebSocket: function(){
+			var self = this;
+			// 建立webSocket
+			var domain = document.domain;
+			var websocket = self.websocket;
+		    if ('WebSocket' in window) {
+		        websocket = new WebSocket("ws://" + domain + "/ru_river/websocket/token/socketServer");
+		    } else if ('MozWebSocket' in window) {
+		        websocket = new MozWebSocket("ws://" + domain + "/ru_river/websocket/token/socketServer");
+		    } else {
+		        websocket = new SockJS("http://" + domain + "/ru_river/sockjs/token/socketServer");
+		    }
+		    websocket.onopen = function(openEvt){
+		    	
+		    };
+		    websocket.onmessage = function(evt) {
+		    	self.scores = JSON.parse(evt.data);
+		    };
+		    websocket.onerror = function(){
+		    	
+		    };
+		    websocket.onclose = function(){
+		    	
+		    };
+		    
+		},
+		sendMsg: function() {
+			var self = this;
+	        if (self.websocket.readyState == websocket.OPEN) {          
+	            var msg = "I'm coming";
+	            websocket.send(msg);//调用后台handleTextMessage方法
+	            alert("发送成功!");  
+	        } else {  
+	            alert("连接失败!");  
+	        }  
 		}
 	}
 };
