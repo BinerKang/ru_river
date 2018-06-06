@@ -1,5 +1,7 @@
 package com.biner.ru.controller;
 
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -8,8 +10,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.biner.ru.common.Constants;
 import com.biner.ru.common.MapResult;
+import com.biner.ru.common.ParamThreadLocal;
+import com.biner.ru.common.RedisKeyConstants;
 import com.biner.ru.util.CodeMsg;
+import com.biner.ru.util.RedisClient;
 import com.biner.ru.util.ResponseUtil;
 import com.biner.ru.service.UserService;
 
@@ -25,13 +31,50 @@ public class UserController {
 	@RequestMapping("/token/register")
 	public void register(HttpServletRequest request, HttpServletResponse response) {
 		MapResult result = null;
+		Map<String, String> params = ParamThreadLocal.get();
 		try {
-			
-			result = new MapResult();
+			String username = params.get("username");
+			String password = params.get("password");
+			String mail = params.get("mail");
+			String code = params.get("code");
+			String realCode = (String) request.getSession().getAttribute("verCode");
+			result = userService.register(username, password, mail, code, realCode);
 		} catch (Exception e) {
+			logger.error("Register has error:", e);
 			result = new MapResult(CodeMsg.SERVER_EXCEPTION, "请求异常");
 		}
 		ResponseUtil.outputJSONResponseEncrypt(request, response, result);
 	}
 
+	@RequestMapping("/token/authMail")
+	public void authMail(HttpServletRequest request, HttpServletResponse response) {
+		MapResult result = null;
+		Map<String, String> params = ParamThreadLocal.get();
+		try {
+			String code = params.get("code");
+			result = userService.authMail(code);
+		} catch (Exception e) {
+			logger.error("Auth mail has error:", e);
+			result = new MapResult(CodeMsg.SERVER_EXCEPTION, "请求异常");
+		}
+		ResponseUtil.outputJSONResponseEncrypt(request, response, result);
+	}
+	
+	@RequestMapping("/token/login")
+	public void login(HttpServletRequest request, HttpServletResponse response) {
+		MapResult result = null;
+		Map<String, String> params = ParamThreadLocal.get();
+		try {
+			String password = params.get("password");
+			String mail = params.get("mail");
+			String code = params.get("code");
+			String sessionId = request.getSession().getId();
+			String realCode = (String) request.getSession().getAttribute("verCode");
+			result = userService.login(sessionId, password, mail, code, realCode);
+		} catch (Exception e) {
+			logger.error("Register has error:", e);
+			result = new MapResult(CodeMsg.SERVER_EXCEPTION, "请求异常");
+		}
+		ResponseUtil.outputJSONResponseEncrypt(request, response, result);
+	}
 }

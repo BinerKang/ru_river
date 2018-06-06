@@ -16,5 +16,5 @@ public class CodeMsg {
 	
 	public final static int  TOKEN_EXPIRED = 1112;
 	
-	public final static int  TOKEN_NULL = 1113;
+	public final static int  CODE_WRONG = 1113;
 }

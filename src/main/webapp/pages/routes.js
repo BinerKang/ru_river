@@ -7,6 +7,14 @@ module.exports = [
     	path:"/register",
     	component: require('./register/register')
     },
+    {
+    	path:"/authMail/:token",
+    	component: require('./authMail/authMail')
+    },
+    {
+    	path:"/login",
+    	component: require('./login/login')
+    },
     // 重定向
     {
         path: '/', 

@@ -1,0 +1,19 @@
+<main-layout>
+	<div hidden="true" v-title>邮箱认证</div>
+    <div class="container">
+      <div align="center" style="width: 80%" >
+      	<div class="alert" hidden="hidden"  id="warn_div">
+		    <a href="#" class="close" data-dismiss="alert">
+		        &times;
+		    </a>
+		    <strong >{{ hintMsg }}</strong> 
+		    <span v-if="success">
+		    	<button type="button" class="btn btn-primary" @click="goToHome">去主页</button>
+		    </span>
+		    <span v-else>
+		    	<button type="button" class="btn btn-primary" @click="goToLogin">登录再发一封</button>
+		    </span>
+		</div>
+	  </div>
+	</div>
+</main-layout>

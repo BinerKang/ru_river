@@ -3,9 +3,9 @@ package com.biner.ru.model;
 public class BaseModel {
 
 	private Long createdBy;
-	private String createdDate;
-	private Long updatedBy;
-	private String updatedDate;
+	private String createdTime;
+	private Long upTimedBy;
+	private String upTimedTime;
 	
 	public Long getCreatedBy() {
 		return createdBy;
@@ -13,23 +13,23 @@ public class BaseModel {
 	public void setCreatedBy(Long createdBy) {
 		this.createdBy = createdBy;
 	}
-	public String getCreatedDate() {
-		return createdDate;
+	public String getCreatedTime() {
+		return createdTime;
 	}
-	public void setCreatedDate(String createdDate) {
-		this.createdDate = createdDate;
+	public void setCreatedTime(String createdTime) {
+		this.createdTime = createdTime;
 	}
-	public Long getUpdatedBy() {
-		return updatedBy;
+	public Long getUpTimedBy() {
+		return upTimedBy;
 	}
-	public void setUpdatedBy(Long updatedBy) {
-		this.updatedBy = updatedBy;
+	public void setUpTimedBy(Long upTimedBy) {
+		this.upTimedBy = upTimedBy;
 	}
-	public String getUpdatedDate() {
-		return updatedDate;
+	public String getUpTimedTime() {
+		return upTimedTime;
 	}
-	public void setUpdatedDate(String updatedDate) {
-		this.updatedDate = updatedDate;
+	public void setUpTimedTime(String upTimedTime) {
+		this.upTimedTime = upTimedTime;
 	}
 	
 }

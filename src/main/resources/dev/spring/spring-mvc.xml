@@ -37,14 +37,18 @@
 		    <mvc:exclude-mapping path="/pages/**" />
 		    <bean class="com.biner.ru.interceptor.CipherInterceptor" />
 		</mvc:interceptor>
-	        
+	    
 		<mvc:interceptor>
 		    <mvc:mapping path="/**" />
 		    <mvc:exclude-mapping path="/static/**" />
 		    <mvc:exclude-mapping path="/pages/**" />
 		    <mvc:exclude-mapping path="/**/token/**" />
-		    <bean class="com.biner.ru.interceptor.TokenInterceptor" />
+	   		<!-- app后台用  
+		    <bean class="com.biner.ru.interceptor.TokenInterceptor" /> -->  
+		    <!-- web用 -->
+		    <bean class="com.biner.ru.interceptor.SessionInterceptor" />
 		</mvc:interceptor>
+		
 		
 	</mvc:interceptors>  
 	

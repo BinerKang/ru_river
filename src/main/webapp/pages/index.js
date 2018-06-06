@@ -8,11 +8,13 @@ new Vue({
     el: '#app',
     router: router,  // 注入到根实例中
     data: {
-    	logged: false,
-    	
+    	user: '',
     },
     created: function() {
-    	
+    	var self = this;
+    	if (sessionStorage.getItem("user")) {
+    		self.user = JSON.parse(sessionStorage.getItem("user"));
+    	}
     },
     mounted: function() {
     },
@@ -22,6 +24,12 @@ new Vue({
 			sessionStorage.setItem('needRefresh', true);
 			this.$router.push("/");
 		},
+		logout: function(){
+			var self = this;
+			sessionStorage.removeItem('user', true);
+			// TODO 删除redis
+			alert("退出成功");
+		}
     }
 });
 Vue.directive('title', {

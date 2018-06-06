@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.biner.ru.mapper.ScoreMapper">
+
+	<select id="selectById" resultType="com.biner.ru.model.Score">
+		SELECT 
+			id,
+			user_id AS userId,
+			score,
+			type
+		FROM t_score_info WHERE id = #{id}
+	</select>
+	
+	<select id="selectOne" resultType="com.biner.ru.model.Score">
+		SELECT 
+			id,
+			user_id AS userId,
+			score,
+			type
+		FROM t_score_info WHERE 1 = 1
+		<if test="null != item.id"> and u.id = #{item.id}</if>
+		<if test="null != item.userId"> and u.mail = #{item.userId}</if>
+	</select>
+	
+	<select id="getAllRank" resultType="com.biner.ru.model.Score">
+		SELECT
+			us.username AS username,
+			us.mail AS mail,
+			sc.user_id AS userId, 
+			sc.score AS score, 
+			MAX(sc.created_time) AS createdTime
+		FROM
+			(
+				SELECT
+					user_id,
+					MAX(score) score
+				FROM
+					t_score_info
+				GROUP BY
+					user_id
+			) g
+		LEFT JOIN t_score_info sc 
+		ON g.user_id = sc.user_id AND g.score = sc.score
+		LEFT JOIN t_user_info us
+		ON sc.user_id = us.id
+		WHERE 1 = 1
+		<if test="null != item.type"> AND sc.type = #{item.type}</if>
+		GROUP BY sc.user_id, sc.score
+		ORDER BY sc.score DESC
+		LIMIT #{item.pageSize} OFFSET #{item.pageNo}
+	</select>
+	
+	
+	<insert id="save" keyProperty="item.id" useGeneratedKeys="true">
+		INSERT INTO t_score_info 
+		(user_id, score, type, updated_time, updated_by, created_time, created_by)
+		VALUES
+		(#{item.userId}, #{item.score},  #{item.type}, now(), 0, now(), 0)
+	</insert>
+
+	
+</mapper>

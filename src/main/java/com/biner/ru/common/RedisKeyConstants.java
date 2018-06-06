@@ -6,9 +6,7 @@ public class RedisKeyConstants {
 
 	public static Logger logger = Logger.getLogger(RedisKeyConstants.class);
 	
-	public static final String TEST_KEY = "test_key";
-	
 	public static String getTokenRedisKey(String token) {
-		return null;
+		return token + "_token";
 	}
 }

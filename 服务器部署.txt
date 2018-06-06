@@ -164,6 +164,7 @@ requirepass Admin@redis 设置密码
 bind 192.168.8.159    //指定IP访问
 bind 0.0.0.0    //任意IP都能访问
 daemonize设置为yes // 后台启动
+cd /usr/local/redis-3.2.9/;
 src/redis-server redis.conf    // 使用配置文件启动redis服务器
 # 本地连接测试
  D:\redis\redis-cli.exe -h 114.115.183.133 -p 6379 -a "Admin@redis"

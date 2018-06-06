@@ -12,6 +12,8 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+import org.apache.log4j.Logger;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
 import com.biner.ru.common.Constants;
@@ -20,12 +22,15 @@ import com.sun.mail.util.MailSSLSocketFactory;
 @Component
 public class EmailUtils {
 	
+	private Logger logger = Logger.getLogger(getClass());
+	
 	private final String FROM = Constants.ADMINSTRATOR_MAIL;
 	
 	private final String HOST_QQ = "smtp.qq.com";
 	
-	private final String PASSWORD_QQ = System.getenv("mail.password");
+	private final String PASSWORD_QQ = System.getenv("MAIL_PASSWORD");
 	
+	@Async
 	public void sendEmail(String to, String title, String content) {
 		// 获取系统属性
 		Properties properties = System.getProperties();
@@ -49,19 +54,17 @@ public class EmailUtils {
  
 	    	// Set From: 头部头字段
 	    	message.setFrom(new InternetAddress(FROM));
- 
 	    	// Set To: 头部头字段
 	    	message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
  
 	    	// Set Subject: 头字段
-	    	message.setSubject("This is the Subject Line!");
- 
+	    	message.setSubject(title);
 	    	// 发送 HTML 消息, 可以插入html标签
-	    	message.setContent(content, "text/html" );
+	    	message.setContent(content, "text/html;charset=utf-8" );
  
 	    	// 发送消息
 	    	Transport.send(message);
-	    	System.out.println("Sent message successfully....");
+	    	logger.info("Sent message successfully....");
 	    }catch (MessagingException mex) {
 	    	mex.printStackTrace();
 	    } catch (GeneralSecurityException e) {

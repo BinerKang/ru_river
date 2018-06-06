@@ -31,7 +31,7 @@ public class CipherInterceptor implements HandlerInterceptor {
 		String value = request.getParameter("data");
 		if (Constants.IS_ENCRYPT) {// 如果加密
 			try {
-				value = DES.decryptDES(value, Constants.DES_KEY);
+				value = DES.decryptDES(value, Constants.SECRET_KEY);
 				// 打印解密后的入参
 				logger.info("Input param after decrypt : key[data]::value[" + value + "]");
 				returnMap = JSON.parseObject(value, new TypeReference<Map<String, String>>() {});

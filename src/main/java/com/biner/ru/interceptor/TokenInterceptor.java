@@ -17,7 +17,7 @@ import com.biner.ru.util.ResponseUtil;
   
 public class TokenInterceptor implements HandlerInterceptor {  
 
-	private static long TOKEN_TIME = Constants.TOKEN_EXPIRE_DAY * 24 * 60 * 60 * 1000L;
+	private static long TOKEN_TIME = Constants.TOKEN_EXPIRE_DAYS * 24 * 60 * 60 * 1000L;
 
 	@Override  
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {  
@@ -51,7 +51,7 @@ public class TokenInterceptor implements HandlerInterceptor {
 	        	}
 	    	}
 	    	
-	    	ResponseUtil.outputJSONResponseEncrypt(request, response, new MapResult(CodeMsg.TOKEN_NULL, "token为空"));
+	    	ResponseUtil.outputJSONResponseEncrypt(request, response, new MapResult(CodeMsg.FAIL, "token为空"));
 	    	return false;
     }  
       

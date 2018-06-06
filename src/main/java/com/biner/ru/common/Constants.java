@@ -11,11 +11,13 @@ public class Constants {
 
 	public static boolean IS_ENCRYPT = false;
 
-	public static String DES_KEY;
+	public static String SECRET_KEY;
 
 	public static boolean NEED_KICK = false;
 	
-	public static int TOKEN_EXPIRE_DAY = 30;
+	public static int TOKEN_EXPIRE_DAYS = 30;
+	
+	public static int WEB_EXPIRE_MINS = 15;
 	
 	public static String MQ_HOST; 
 	
@@ -30,6 +32,13 @@ public class Constants {
 	public static int MQ_PORT = 5672;
 	
 	public static String ADMINSTRATOR_MAIL;
+	
+	public static int VERIFY_MAIL_EXPIRE_DAYS;
+	
+	public static String HOST_SERVER_BASE_URL;
+	//验证邮件模板
+	public static String VERIFY_MAIL_TITLE;
+	public static String VERIFY_MAIL_CONTENT;
 	
 	/**
 	 * redis相关信息
@@ -47,9 +56,9 @@ public class Constants {
 	static {
 		// 配置文件
 		Properties configProperties = getProperties("/config.properties");
-		IS_ENCRYPT = Boolean.parseBoolean(configProperties.getProperty("is_encrypt", "false").trim());
+		IS_ENCRYPT = Boolean.parseBoolean(configProperties.getProperty("is.encrypt", "false").trim());
 		NEED_KICK = Boolean.parseBoolean(configProperties.getProperty("needKick", "true").trim());
-		DES_KEY = configProperties.getProperty("des.key", "biner_ru").trim();
+		SECRET_KEY = configProperties.getProperty("secret.key", "biner_ru").trim();
 		FREEGEOIP_URL = configProperties.getProperty("freegeoip.url").trim();
 		
 		PROVINCE_CODE = new HashMap<String, String>();
@@ -60,6 +69,24 @@ public class Constants {
 			PROVINCE_CODE.put(code[0], code[1]);
 		}
 		ADMINSTRATOR_MAIL = configProperties.getProperty("administrator.mail").trim();
+		VERIFY_MAIL_EXPIRE_DAYS = Integer.parseInt(configProperties.getProperty("verify.mail.expire.days").trim());
+		HOST_SERVER_BASE_URL = configProperties.getProperty("host.server.base.url").trim();
+		
+		//redis
+		jedisPort = Integer.parseInt(configProperties.getProperty("redis.port").trim());
+		jedisIp = configProperties.getProperty("redis.ip").trim();
+		jedisPassword = configProperties.getProperty("redis.password").trim();
+		usePool = Boolean.parseBoolean(configProperties.getProperty("redis.usePool", "true").trim());
+		testOnBorrow = Boolean.parseBoolean(configProperties.getProperty("redis.testOnBorrow", "false").trim());
+		maxIdle = Integer.parseInt(configProperties.getProperty("redis.maxIdle").trim());;
+		maxTotal = Integer.parseInt(configProperties.getProperty("redis.maxTotal").trim());;
+		minIdle = Integer.parseInt(configProperties.getProperty("redis.minIdle").trim());;
+		jedisTimeout = Integer.parseInt(configProperties.getProperty("redis.timeout").trim());
+		
+		// 模板配置文件
+		configProperties = getProperties("/template.properties");
+		VERIFY_MAIL_TITLE = configProperties.getProperty("verify.mail.title").trim();
+		VERIFY_MAIL_CONTENT = configProperties.getProperty("verify.mail.content").trim();
 	}
 	
 	public static Properties getProperties(String filePath) {

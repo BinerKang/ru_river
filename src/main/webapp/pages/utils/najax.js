@@ -26,7 +26,8 @@ var opts = {
 		};
 var spinner = new Spinner(opts);
 var ajaxAsync = function(type, method, url, data, cb, needMask) {
-
+	// 将data转化为JSON字符串，便于服务器处理
+	var data = {data: JSON.stringify(data)}; 
 	if (type === 'json') {
 		return new Promise(function(resolve, reject) {
 			$.ajax({

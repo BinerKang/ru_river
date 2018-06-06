@@ -1,19 +1,15 @@
-var temp = require('register.html');
-var Najax = require('../utils/najax');
+var temp = require('login.html');
+var Najax = require('../utils/najax')
 
 module.exports = {
 	template: temp,
 	
 	data: function(){
 		return {
-			username: '',
 			password: '',
-			password2: '',
 			mail: '',
 			code: '',
-			usernameFlag: false,
 			passwordFlag: false,
-			password2Flag: false,
 			mailFlag: false,
 			codeFlag: false,
 			hintMsg: '',
@@ -37,50 +33,37 @@ module.exports = {
 			sessionStorage.setItem('needRefresh', true);
 			this.$router.push("/");
 		},
-		register: function(){
+		login: function(){
 			var self = this;
 			var data = {
-				username: $.trim(self.username),
 				password: $.trim(self.password),
 				mail: $.trim(self.mail),
 				code: $.trim(self.code)
 			}
-			Najax.postMask('user/token/register', data).then(function(res){
+			Najax.postMask('user/token/login', data).then(function(res){
 				var res = res.result;
 				var code = res.code;
 				var msg = res.msg;
+				var user = res.data.userInfo;
 				if (code == 0) {
-					msg = "注册成功！已经向你的邮箱发了一封验证邮件，请跟随提示验证。";
+					msg = "登录成功！";
 					self.success = true;
-					data.password = '';
-					sessionStorage.setItem("user", JSON.stringify(data));
+					sessionStorage.setItem("user", JSON.stringify(user));
 				}
 				//刷新验证码，清空验证码
 				$("#img").click();
 				self.code = '';
-				$("#registerBtn").attr("disabled",true);
+				$("#loginBtn").attr("disabled",true);
 				self.hintMsg = msg;
 				self.showResult(msg, code);
 			}).catch(function(error){
 				alert(error);
 			});
 		},
-		checkUsername: function() {
-			var self = this;
-			self.usernameFlag = self.username.length>3?true:false;
-			self.hintForm("username_div", self.usernameFlag);
-			self.enableRegister();
-		},
 		checkPassword: function() {
 			var self = this;
 			self.passwordFlag = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,15}$/.test(self.password);
 			self.hintForm("password_div", self.passwordFlag);
-			self.enableRegister();
-		},
-		checkPassword2: function() {
-			var self = this;
-			self.password2Flag = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,15}$/.test(self.password2) && (self.password == self.password2);
-			self.hintForm("password2_div", self.password2Flag);
 			self.enableRegister();
 		},
 		checkMail: function() {
@@ -110,11 +93,11 @@ module.exports = {
 		},
 		enableRegister: function() {
 			var self = this;
-			var flag = self.usernameFlag && self.passwordFlag && self.password2Flag && self.mailFlag && self.codeFlag;
+			var flag = self.passwordFlag && self.mailFlag && self.codeFlag;
 			if(flag) {
-				$("#registerBtn").attr("disabled",false);
+				$("#loginBtn").attr("disabled",false);
 			} else {
-				$("#registerBtn").attr("disabled",true);
+				$("#loginBtn").attr("disabled",true);
 			}
 		},
 		showResult: function(msg, status) {

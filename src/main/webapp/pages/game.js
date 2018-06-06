@@ -1,3 +1,5 @@
+var Najax = require('./utils/najax')
+
 var ctx = null;
 
 window.requestAnimFrame = (function() {
@@ -9,10 +11,10 @@ window.requestAnimFrame = (function() {
 	};
 })();
 
-		
-	
 var Game = {
 	
+	canUpload: true,	
+		
 	status: true,
 	
 	canvas: document.getElementById('canvas'),
@@ -62,7 +64,7 @@ var Game = {
 		Ball.init();
 		Paddle.init();
 		Bricks.init();
-		
+		this.canUpload = true;
 	},
 	
 	draw: function() {
@@ -84,6 +86,29 @@ var Game = {
 	
 	levelLimit: function(lv){//砖块限定为最高只能达到5行
 		return lv > 5 ? 5 : lv;
+	},
+	
+	uploadScore: function(){
+		if (this.canUpload) {
+			this.canUpload = false;
+			user = JSON.parse(sessionStorage.getItem("user"));
+			if (user != null && user.mail){//表示登录了 
+				// 上传数据到服务器
+				Najax.post('common/recordScore', {score: Hud.score}).then(function(res){
+					console.log(res.result.msg);
+				}).catch(function(error){
+					console.log(error);
+				});
+			} else {//未登录
+				var maxScore = sessionStorage.getItem("maxScore");
+				if (maxScore) {
+					maxScore = parseInt(maxScore);
+					if (Hud.score > maxScore) {//提示用户登录留下记录
+						$("#myModalBtn").click();
+					}
+				}
+			}
+		}
 	}
 };
 
@@ -298,6 +323,7 @@ var Ball = {
 			this.y = this.x = 1000;
 			Screen.gameover();
 			Game.canvas.addEventListener('click', Game.restartGame, false);
+			Game.uploadScore();
 			return;
 		} 
 		if (this.x < 1) {

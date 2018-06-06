@@ -23,31 +23,27 @@
 		<div class="navbar navbar-inverse" role="navigation">
 		    <div class="container">
 		        <div class="navbar-header">
-		            <button tyep="button" class="navbar-toggle" date-toggle="collapse" data-target=".navbar-collapse">
+		            <button type="button" class="navbar-toggle" date-toggle="collapse" data-target=".navbar-collapse">
 		                <span class="sr-only">Toggle navigation</span>
 		                <span class="icon-bar"></span>
 		                <span class="icon-bar"></span>
 		                <span class="icon-bar"></span>
 		            </button>
-		            <a @click="goToHome" class="navbar-brand" >主页</a>
+		            <a @click="goToHome" class="navbar-brand" ><strong>主页</strong></a>
 		        </div>
 		        <div class="navbar-collapse collapse">
 		            <ul class="nav navbar-nav">
-		                <li v-if="logged">
-		                    <a href="getProfile">个人资料</a>
+		                <li v-if="user">
+		                    <router-link to="/profile" class="navbar-brand" > 个人信息  </router-link>
 		                </li>
 		            </ul>
 		            <ul class="nav navbar-nav navbar-right">
-		                <li v-if="logged">
-		                    <a> 退出  </a>
+		                <li v-if="user">
+		                    <a @click="logout" class="navbar-brand" > 退出  </a>
 		                </li>
-		                <li v-else >
-		                   <li> 
-		                   		<router-link to="/login" class="navbar-brand" > 登录  </router-link>
-		                   </li>
-		                   <li> 
-		                   		<router-link to="/register" class="navbar-brand" > 注册 </router-link>
-		                   </li>
+		                <li v-else>
+		                   	<router-link to="/login" class="navbar-brand" > 登录  </router-link>
+		                   	<router-link to="/register" class="navbar-brand" > 注册 </router-link>
 		                </li>
 		                
 		            </ul>

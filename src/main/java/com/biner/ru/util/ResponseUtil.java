@@ -38,7 +38,7 @@ public class ResponseUtil {
 						logger.error("Output params turn to json exception.", e);
 					}
 				}
-				json = DES.encryptDES(json, Constants.DES_KEY);
+				json = DES.encryptDES(json, Constants.SECRET_KEY);
 				result.put("result", json);
 				logger.error(request.getRequestURI() + "**Output params's json string after encypt is :: " + json);
 			} else { // 如果配置了不加密
