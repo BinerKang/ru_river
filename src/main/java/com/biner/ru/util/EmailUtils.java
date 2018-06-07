@@ -44,7 +44,7 @@ public class EmailUtils {
 	    	sf.setTrustAllHosts(true);
 	    	properties.put("mail.smtp.ssl.enable", "true");
 	    	properties.put("mail.smtp.ssl.socketFactory", sf);
-	    	logger.info(PASSWORD_QQ);
+	    	logger.info("PASSWORD_QQ:" + PASSWORD_QQ);
 	    	// 获取默认的 Session 对象。
 	    	Session session = Session.getDefaultInstance(properties, new Authenticator(){
 	    		public PasswordAuthentication getPasswordAuthentication() {

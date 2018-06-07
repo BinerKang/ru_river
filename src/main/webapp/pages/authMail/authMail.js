@@ -25,7 +25,7 @@ module.exports = {
 				if (code == 0) {
 					msg = "认证成功！";
 					self.success = true;
-					sessionStorage.setItem("user", res.data.userInfo);
+					sessionStorage.setItem("user", JSON.stringify(res.data.userInfo));
 				} else {
 					sessionStorage.removeItem("user");
 					msg = "认证失败！"
