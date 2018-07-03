@@ -39,17 +39,15 @@ public class CommonService {
 	public MapResult getHomeInfo(String ip) {
 		MapResult result = null;
 		String ipUrl = Constants.FREEGEOIP_URL + ip;
-		String location = null;
+		String location = "亲爱";
 		Map<String, Object> data = new HashMap<String, Object>();
 		try {
-			String resultStr = HttpUtils.sendGet(ipUrl);
-			JSONObject resultJson = JSONObject.parseObject(resultStr);
-			if ("CN".equals(resultJson.getString("country_code"))) {
-				String priCode = resultJson.getString("region_code");
-				location = Constants.PROVINCE_CODE.get(priCode);
-			} else {
-				location = "远方";
-			}
+//			String resultStr = HttpUtils.sendGet(ipUrl);
+//			JSONObject resultJson = JSONObject.parseObject(resultStr);
+//			if ("CN".equals(resultJson.getString("country_code"))) {
+//				String priCode = resultJson.getString("region_code");
+//				location = Constants.PROVINCE_CODE.get(priCode);
+//			}
 		} catch (Exception e) {
 			logger.error("Request Freegeoip has error:::", e);
 			result = new MapResult(CodeMsg.SERVER_EXCEPTION);

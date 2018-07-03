@@ -37,8 +37,9 @@ public class UserController {
 			String password = params.get("password");
 			String mail = params.get("mail");
 			String code = params.get("code");
+			String score = params.get("score");
 			String realCode = (String) request.getSession().getAttribute("verCode");
-			result = userService.register(username, password, mail, code, realCode);
+			result = userService.register(username, password, mail, code, realCode, score);
 		} catch (Exception e) {
 			logger.error("Register has error:", e);
 			result = new MapResult(CodeMsg.SERVER_EXCEPTION, "请求异常");
@@ -68,9 +69,10 @@ public class UserController {
 			String password = params.get("password");
 			String mail = params.get("mail");
 			String code = params.get("code");
+			String score = params.get("score");
 			String sessionId = request.getSession().getId();
 			String realCode = (String) request.getSession().getAttribute("verCode");
-			result = userService.login(sessionId, password, mail, code, realCode);
+			result = userService.login(sessionId, password, mail, code, realCode, score);
 		} catch (Exception e) {
 			logger.error("Register has error:", e);
 			result = new MapResult(CodeMsg.SERVER_EXCEPTION, "请求异常");

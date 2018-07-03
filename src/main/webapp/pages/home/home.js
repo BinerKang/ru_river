@@ -76,6 +76,10 @@ module.exports = {
 		    };
 		    websocket.onmessage = function(evt) {
 		    	self.scores = JSON.parse(evt.data);
+		    	if (self.scores) {
+		    		// 更新最大值
+		    		sessionStorage.setItem("maxScore", self.scores[0].score);
+		    	}
 		    };
 		    websocket.onerror = function(){
 		    	

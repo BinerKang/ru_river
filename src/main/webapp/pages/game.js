@@ -104,6 +104,7 @@ var Game = {
 				if (maxScore) {
 					maxScore = parseInt(maxScore);
 					if (Hud.score > maxScore) {//提示用户登录留下记录
+						sessionStorage.setItem("maxScoreTmp", Hud.score);
 						$("#myModalBtn").click();
 					}
 				}

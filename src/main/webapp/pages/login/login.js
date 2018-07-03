@@ -40,6 +40,10 @@ module.exports = {
 				mail: $.trim(self.mail),
 				code: $.trim(self.code)
 			}
+			var maxScoreTmp = sessionStorage.getItem("maxScoreTmp");
+			if (maxScoreTmp) {
+				data.score = maxScoreTmp;
+			}
 			Najax.postMask('user/token/login', data).then(function(res){
 				var res = res.result;
 				var code = res.code;

@@ -43,7 +43,7 @@ public class UserService {
 	 * @date 2018-06-03
 	 */
 	public synchronized MapResult register(String username, String password,
-			String mail, String code, String realCode) throws Exception {
+			String mail, String code, String realCode, String score) throws Exception {
 		//TODO 非空校验，参数校验
 		if(!realCode.equalsIgnoreCase(code)) {
 			return new MapResult(CodeMsg.FAIL, "验证码错误");
@@ -68,10 +68,14 @@ public class UserService {
 			String content = commonService.getVerifyMailContent(mail, username);
 			emailUtils.sendEmail(mail, Constants.VERIFY_MAIL_TITLE, content);
 		}
+		if (StringUtils.isNotEmpty(score)) {
+			commonService.recordScore(score, String.valueOf(u.getId()));
+		}
 		return new MapResult();
 	}
 
-	public MapResult login(String sessionId, String password, String mail, String code, String realCode) throws Exception {
+	public MapResult login(String sessionId, String password, String mail, String code, 
+			String realCode, String score) throws Exception {
 		//TODO 非空校验，参数校验
 		if(!realCode.equalsIgnoreCase(code)) {
 			return new MapResult(CodeMsg.FAIL, "验证码错误");
@@ -87,6 +91,9 @@ public class UserService {
 		// 将session放入redis
     	String tokenKey = RedisKeyConstants.getTokenRedisKey(sessionId);
     	RedisClient.setString(tokenKey, String.valueOf(u.getId()), Constants.WEB_EXPIRE_MINS * 60);
+    	if (StringUtils.isNotEmpty(score)) {
+			commonService.recordScore(score, String.valueOf(u.getId()));
+		}
 		MapResult result = new MapResult();
 		Map<String, Object> data = new HashMap<String, Object>();
 		data.put("userInfo", u);
