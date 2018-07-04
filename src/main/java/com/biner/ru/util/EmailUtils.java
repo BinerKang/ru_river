@@ -68,9 +68,9 @@ public class EmailUtils {
 	    	Transport.send(message);
 	    	logger.info("Sent email successfully....");
 	    } catch (MessagingException mex) {
-	    	logger.info("Sent email haas error", mex);
+	    	logger.info("Sent email has error", mex);
 	    } catch (GeneralSecurityException e) {
-	    	logger.info("Sent email haas error", e);
+	    	logger.info("Sent email has error", e);
 		}
 	}
 	

@@ -42,7 +42,7 @@ public class UserService {
 	 * @throws Exception 
 	 * @date 2018-06-03
 	 */
-	public synchronized MapResult register(String username, String password,
+	public synchronized MapResult register(String sessionId, String username, String password,
 			String mail, String code, String realCode, String score) throws Exception {
 		//TODO 非空校验，参数校验
 		if(!realCode.equalsIgnoreCase(code)) {
@@ -68,6 +68,8 @@ public class UserService {
 			String content = commonService.getVerifyMailContent(mail, username);
 			emailUtils.sendEmail(mail, Constants.VERIFY_MAIL_TITLE, content);
 		}
+		// 将session放入redis
+		RedisKeyConstants.addTokenToRedis(sessionId, String.valueOf(u.getId()));
 		if (StringUtils.isNotEmpty(score)) {
 			commonService.recordScore(score, String.valueOf(u.getId()));
 		}
@@ -89,8 +91,7 @@ public class UserService {
 			return new MapResult(CodeMsg.FAIL, "账号或密码错误");
 		}
 		// 将session放入redis
-    	String tokenKey = RedisKeyConstants.getTokenRedisKey(sessionId);
-    	RedisClient.setString(tokenKey, String.valueOf(u.getId()), Constants.WEB_EXPIRE_MINS * 60);
+		RedisKeyConstants.addTokenToRedis(sessionId, String.valueOf(u.getId()));
     	if (StringUtils.isNotEmpty(score)) {
 			commonService.recordScore(score, String.valueOf(u.getId()));
 		}
@@ -102,7 +103,7 @@ public class UserService {
 	}
 	
 	@Transactional
-	public MapResult authMail(String code) throws Exception {
+	public MapResult authMail(String sessionId, String code) throws Exception {
 		if(StringUtils.isEmpty(code)) {
 			return new MapResult(CodeMsg.FAIL, "参数为空");
 		}
@@ -124,6 +125,8 @@ public class UserService {
 		} else {
 			u = userMapper.selectOne(u);
 		}
+		// 将session放入redis
+		RedisKeyConstants.addTokenToRedis(sessionId, String.valueOf(u.getId()));
 		MapResult result = new MapResult();
 		Map<String, Object> data = new HashMap<String, Object>();
 		data.put("userInfo", u);
