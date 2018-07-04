@@ -28,8 +28,6 @@ public class EmailUtils {
 	
 	private final String HOST_QQ = "smtp.qq.com";
 	
-	private final String PASSWORD_QQ = System.getenv("MAIL_PASSWORD");
-	
 	@Async
 	public void sendEmail(String to, String title, String content) {
 		logger.info("Sent email begin....");
@@ -44,6 +42,7 @@ public class EmailUtils {
 	    	sf.setTrustAllHosts(true);
 	    	properties.put("mail.smtp.ssl.enable", "true");
 	    	properties.put("mail.smtp.ssl.socketFactory", sf);
+	    	String PASSWORD_QQ = System.getenv("MAIL_PASSWORD");
 	    	logger.info("PASSWORD_QQ:" + PASSWORD_QQ);
 	    	// 获取默认的 Session 对象。
 	    	Session session = Session.getDefaultInstance(properties, new Authenticator(){
