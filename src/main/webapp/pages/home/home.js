@@ -31,8 +31,9 @@ module.exports = {
     			if (result.code == 0) {
     				self.ipLocation = result.data.province;
     				self.scores = result.data.scores;
+    				var maxIndex = self.scores.length - 1;
     				// 将最大值放入sessionStorage,游戏结束时比较
-    				sessionStorage.setItem("maxScore", self.scores[0].score);
+    				sessionStorage.setItem("minScore", self.scores[maxIndex].score);
     			}
     			
     		},
@@ -78,7 +79,8 @@ module.exports = {
 		    	self.scores = JSON.parse(evt.data);
 		    	if (self.scores) {
 		    		// 更新最大值
-		    		sessionStorage.setItem("maxScore", self.scores[0].score);
+		    		var maxIndex = self.scores.length - 1;
+		    		sessionStorage.setItem("minScore", self.scores[maxIndex].score);
 		    	}
 		    };
 		    websocket.onerror = function(){

@@ -26,7 +26,7 @@
 	<select id="getAllRank" resultType="com.biner.ru.model.Score">
 		SELECT
 			us.username AS username,
-			us.mail AS mail,
+			CONCAT('*****', SUBSTRING(us.mail, 6)) AS mail,
 			sc.user_id AS userId, 
 			sc.score AS score, 
 			MAX(sc.created_time) AS createdTime

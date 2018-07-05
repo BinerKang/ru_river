@@ -104,7 +104,7 @@ fi
    rm -f ru_river.war  
    rm -rf ru_river  
    cp /var/lib/jenkins/workspace/ru_river/target/ru_river.war /usr/local/tomcat-8.0.51/webapps/
-   /usr/local/tomcat-8.0.51/bin/startup.sh
+   /usr/local/tomcat-8.0.51/bin/catalina.sh start
    sleep 5s  
 *****************************
 

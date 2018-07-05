@@ -100,10 +100,10 @@ var Game = {
 					console.log(error);
 				});
 			} else {//未登录
-				var maxScore = sessionStorage.getItem("maxScore");
-				if (maxScore) {
-					maxScore = parseInt(maxScore);
-					if (Hud.score > maxScore) {//提示用户登录留下记录
+				var minScore = sessionStorage.getItem("minScore");
+				if (minScore) {
+					maxScore = parseInt(minScore);
+					if (Hud.score > minScore) {//提示用户登录留下记录
 						sessionStorage.setItem("maxScoreTmp", Hud.score);
 						$("#myModalBtn").click();
 					}
