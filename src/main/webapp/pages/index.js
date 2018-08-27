@@ -11,6 +11,8 @@ new Vue({
     	user: '',
     },
     created: function() {
+    	// 设置app的最小高度，把页脚顶下去
+    	$("#app").css("min-height", $(window).height()*0.85);
     	var self = this;
     	if (sessionStorage.getItem("user")) {
     		self.user = JSON.parse(sessionStorage.getItem("user"));

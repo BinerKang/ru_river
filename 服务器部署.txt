@@ -255,3 +255,14 @@ vi /usr/local/apache-maven-3.5.3/conf/setting.xml 的mirros里添加
 yum install curl-devel expat-devel gettext-devel openssl-devel zlib-devel perl-devel
 安装 git
 yum install -y git
+
+设置tomcat直接访问项目
+===============
+vi $tomcat/conf/server.xml
+<Host name="localhost"  appBase="webapps"
+            unpackWARs="true" autoDeploy="true"
+            xmlValidation="false" xmlNamespaceAware="false">
+
+    增加这一行（docBase:为项目的名称）：<Context path="" docBase="Demo" reloadable="true" />
+
+ </Host>
