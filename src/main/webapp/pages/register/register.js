@@ -103,11 +103,13 @@ module.exports = {
 			if (flag) {
 				$("#" + eleId).removeClass("has-error");
 				$("#" + eleId).addClass("has-success");
+				$("#hint_div").hide();
 				$("#" + eleId + " span").removeClass("glyphicon-remove");
 				$("#" + eleId + " span").addClass("glyphicon-ok");
 			} else {
 				$("#" + eleId).removeClass("has-success");
 				$("#" + eleId).addClass("has-error");
+				$("#hint_div").show();
 				$("#" + eleId + " span").removeClass("glyphicon-ok");
 				$("#" + eleId + " span").addClass("glyphicon-remove");
 			}
