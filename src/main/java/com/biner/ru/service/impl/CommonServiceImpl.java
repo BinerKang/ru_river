@@ -13,10 +13,12 @@ import com.alibaba.fastjson.JSONObject;
 import com.biner.ru.common.Constants;
 import com.biner.ru.common.MapResult;
 import com.biner.ru.mapper.ScoreMapper;
+import com.biner.ru.model.IpInfo;
 import com.biner.ru.model.Score;
 import com.biner.ru.service.CommonService;
 import com.biner.ru.util.AESUtils;
 import com.biner.ru.util.CodeMsg;
+import com.biner.ru.util.MaxMindUtils;
 import com.biner.ru.webSocket.SpringWebSocketHandler;
 
 @Service
@@ -38,19 +40,12 @@ public class CommonServiceImpl implements CommonService {
 	
 	public MapResult getHomeInfo(String ip) {
 		MapResult result = null;
-		String ipUrl = Constants.FREEGEOIP_URL + ip;
-		String location = "亲爱";
 		Map<String, Object> data = new HashMap<String, Object>();
+		IpInfo ipInfo = null;
 		try {
-//			String resultStr = HttpUtils.sendGet(ipUrl);
-//			JSONObject resultJson = JSONObject.parseObject(resultStr);
-//			if ("CN".equals(resultJson.getString("country_code"))) {
-//				String priCode = resultJson.getString("region_code");
-//				location = Constants.PROVINCE_CODE.get(priCode);
-//			}
+			ipInfo = MaxMindUtils.getIpInfo(ip); 
 		} catch (Exception e) {
 			logger.error("Request Freegeoip has error:::", e);
-			result = new MapResult(CodeMsg.SERVER_EXCEPTION);
 		}
 		if (scores.size() == 0) {
 			Score sc = new Score();
@@ -64,7 +59,7 @@ public class CommonServiceImpl implements CommonService {
 			}
 		}
 		result = new MapResult();
-		data.put("province", location);
+		data.put("ipInfo", ipInfo);
 		data.put("scores", scores);
 		result.setData(data);
 		return result;

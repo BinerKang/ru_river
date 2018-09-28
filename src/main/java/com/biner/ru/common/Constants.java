@@ -25,10 +25,6 @@ public class Constants {
 	
 	public static String MQ_PASSWORD;
 	
-	public static String FREEGEOIP_URL;
-	
-	public static Map<String, String> PROVINCE_CODE;
-	
 	public static int MQ_PORT = 5672;
 	
 	public static String ADMINSTRATOR_MAIL;
@@ -39,7 +35,8 @@ public class Constants {
 	//验证邮件模板
 	public static String VERIFY_MAIL_TITLE;
 	public static String VERIFY_MAIL_CONTENT;
-	
+	//MaxMind 数据库GeoLite地址
+	public static String geoLitePath;
 	/**
 	 * redis相关信息
 	 */
@@ -59,15 +56,6 @@ public class Constants {
 		IS_ENCRYPT = Boolean.parseBoolean(configProperties.getProperty("is.encrypt", "false").trim());
 		NEED_KICK = Boolean.parseBoolean(configProperties.getProperty("needKick", "true").trim());
 		SECRET_KEY = configProperties.getProperty("secret.key", "biner_ru").trim();
-		FREEGEOIP_URL = configProperties.getProperty("freegeoip.url").trim();
-		
-		PROVINCE_CODE = new HashMap<String, String>();
-		String[] provinceArr = configProperties.getProperty("province.code").trim().split(";"); 
-		String[] code = null;
-		for (String prov : provinceArr) {
-			code = prov.split(",");
-			PROVINCE_CODE.put(code[0], code[1]);
-		}
 		ADMINSTRATOR_MAIL = configProperties.getProperty("administrator.mail").trim();
 		VERIFY_MAIL_EXPIRE_DAYS = Integer.parseInt(configProperties.getProperty("verify.mail.expire.days").trim());
 		HOST_SERVER_BASE_URL = configProperties.getProperty("host.server.base.url").trim();
@@ -83,10 +71,13 @@ public class Constants {
 		minIdle = Integer.parseInt(configProperties.getProperty("redis.minIdle").trim());;
 		jedisTimeout = Integer.parseInt(configProperties.getProperty("redis.timeout").trim());
 		
+		geoLitePath =  configProperties.getProperty("geoLite.path").trim();
+		
 		// 模板配置文件
 		configProperties = getProperties("/template.properties");
 		VERIFY_MAIL_TITLE = configProperties.getProperty("verify.mail.title").trim();
 		VERIFY_MAIL_CONTENT = configProperties.getProperty("verify.mail.content").trim();
+		
 	}
 	
 	public static Properties getProperties(String filePath) {

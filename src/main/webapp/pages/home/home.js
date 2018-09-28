@@ -5,7 +5,7 @@ module.exports = {
 	
 	data: function(){
 		return {
-			ipLocation: '',
+			ipInfo: '',
 			user: '',
 			scores: '',
 			websocket: null
@@ -29,7 +29,7 @@ module.exports = {
     		success: function(res) {
     			var result = res.result;
     			if (result.code == 0) {
-    				self.ipLocation = result.data.province;
+    				self.ipInfo = result.data.ipInfo;
     				self.scores = result.data.scores;
     				var maxIndex = self.scores.length - 1;
     				// 将最大值放入sessionStorage,游戏结束时比较
