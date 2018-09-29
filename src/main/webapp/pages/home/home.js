@@ -6,6 +6,7 @@ module.exports = {
 	data: function(){
 		return {
 			ipInfo: '',
+			ipLocation:'',
 			user: '',
 			scores: '',
 			websocket: null
@@ -29,7 +30,14 @@ module.exports = {
     		success: function(res) {
     			var result = res.result;
     			if (result.code == 0) {
-    				self.ipInfo = result.data.ipInfo;
+    				var ipInfo = result.data.ipInfo;
+    				self.ipLocation = ipInfo?ipInfo.country:'亲爱';
+    				if (ipInfo.subdivision) {
+    					self.ipLocation += ipInfo.subdivision;
+    					if (ipInfo.city) {
+    						self.ipLocation += ipInfo.city;
+    					}
+    				}
     				self.scores = result.data.scores;
     				var maxIndex = self.scores.length - 1;
     				// 将最大值放入sessionStorage,游戏结束时比较

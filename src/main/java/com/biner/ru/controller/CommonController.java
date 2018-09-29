@@ -28,7 +28,7 @@ public class CommonController {
 	private Logger logger = Logger.getLogger(CommonController.class);
 
 	@RequestMapping("/token/getHomeInfo")
-	public void getIpLocation(HttpServletRequest request, HttpServletResponse response) {
+	public void getHomeInfo(HttpServletRequest request, HttpServletResponse response) {
 		MapResult result = null;
 		String ip = IpUtils.getIpAddr(request);
 		if(StringUtils.isEmpty(ip)) {

@@ -112,8 +112,8 @@ fi
 ***********************
 https://blog.csdn.net/zh520qx/article/details/55669142 配置maven部署   
 Build 命令
-测试环境：install package -Ptest -DskipTests=true -e -X
-生产环境：install package -Ppro -DskipTests=true -e -X
+测试环境：clean install package -Ptest -DskipTests=true -e -X
+生产环境：clean install package -Ppro -DskipTests=true -e -X
 ***********************
 
 ===============================
@@ -146,6 +146,8 @@ flush privileges;
 # 移除仓库
 yum -y remove mysql57-community-release-el7-10.noarch
 
+报错查看日志：
+ vi /var/log/mysqld.log
 ==============================
 
 redis 安装
