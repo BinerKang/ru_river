@@ -4,8 +4,8 @@ public class BaseModel {
 
 	private Long createdBy;
 	private String createdTime;
-	private Long upTimedBy;
-	private String upTimedTime;
+	private Long updatedBy;
+	private String updatedTime;
 	
 	public Long getCreatedBy() {
 		return createdBy;
@@ -19,17 +19,17 @@ public class BaseModel {
 	public void setCreatedTime(String createdTime) {
 		this.createdTime = createdTime;
 	}
-	public Long getUpTimedBy() {
-		return upTimedBy;
+	public Long getUpdatedBy() {
+		return updatedBy;
 	}
-	public void setUpTimedBy(Long upTimedBy) {
-		this.upTimedBy = upTimedBy;
+	public void setUpdatedBy(Long updatedBy) {
+		this.updatedBy = updatedBy;
 	}
-	public String getUpTimedTime() {
-		return upTimedTime;
+	public String getUpdatedTime() {
+		return updatedTime;
 	}
-	public void setUpTimedTime(String upTimedTime) {
-		this.upTimedTime = upTimedTime;
+	public void setUpdatedTime(String updatedTime) {
+		this.updatedTime = updatedTime;
 	}
 	
 }

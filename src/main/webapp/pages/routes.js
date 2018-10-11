@@ -1,7 +1,17 @@
 module.exports = [
     {
         path:"/home",
-        component: require('./home/home')
+        component: require('./home/home'),
+        children: [
+        	{
+        		path:"",
+        		component: require("./article/article")
+        	},
+        	{
+        		path:"pinball",
+        		component: require('./game/pinball/pinball')
+        	}
+        ]
     },
     {
     	path:"/register",

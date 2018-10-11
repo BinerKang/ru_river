@@ -17,6 +17,7 @@ import com.biner.ru.common.RedisKeyConstants;
 import com.biner.ru.mapper.UserMapper;
 import com.biner.ru.model.User;
 import com.biner.ru.service.CommonService;
+import com.biner.ru.service.GameService;
 import com.biner.ru.service.UserService;
 import com.biner.ru.util.AESUtils;
 import com.biner.ru.util.CodeMsg;
@@ -29,6 +30,9 @@ public class UserServiceImpl implements UserService {
 	
 	@Autowired
 	private UserMapper userMapper;
+	
+	@Autowired
+	private GameService gameService;
 	
 	@Autowired
 	private CommonService commonService;
@@ -71,7 +75,7 @@ public class UserServiceImpl implements UserService {
 		// 将session放入redis
 		RedisKeyConstants.addTokenToRedis(sessionId, String.valueOf(u.getId()));
 		if (StringUtils.isNotEmpty(score)) {
-			commonService.recordScore(score, String.valueOf(u.getId()));
+			gameService.recordScore(score, String.valueOf(u.getId()));
 		}
 		return new MapResult();
 	}
@@ -93,7 +97,7 @@ public class UserServiceImpl implements UserService {
 		// 将session放入redis
 		RedisKeyConstants.addTokenToRedis(sessionId, String.valueOf(u.getId()));
     	if (StringUtils.isNotEmpty(score)) {
-			commonService.recordScore(score, String.valueOf(u.getId()));
+			gameService.recordScore(score, String.valueOf(u.getId()));
 		}
 		MapResult result = new MapResult();
 		Map<String, Object> data = new HashMap<String, Object>();

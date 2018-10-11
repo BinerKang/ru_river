@@ -6,8 +6,10 @@
 
 ### 技术
 该项目为Maven项目。
-* 前端框架和路由使用Vue.js，样式使用Bootstrap，游戏排行榜通过WebSocket实时更新。
+* 前端框架和路由使用Vue.js，样式使用Bootstrap，聊天室(广播室)、游戏排行榜通过WebSocket实时更新。
 * 后台框架SpringMVC\Mybatis，数据库连接池采用Druid，采用Quartz定时任务框架，生产、测试、开发配置分离。
+* 地址信息是通过访问者的IP，查询[GeoLite数据库](http://www.maxmind.com)获取的。
+* 文章内容大部分采用python爬取。
 * 服务器系统CentOS7，搭建了Jekins实现自动部署。[服务器部署.txt](https://github.com/BinerKang/ru_river/blob/master/%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%83%A8%E7%BD%B2.txt)记载了如何安装项目所需要的相关软件。
 * 由于服务器内存有限，Jekins与tomcat服务不能同时开启。所以简单的脚本[closeJenkins.sh](https://github.com/BinerKang/ru_river/blob/master/openJenkins.sh)、[closeJenkins.sh](https://github.com/BinerKang/ru_river/blob/master/closeJenkins.sh)实现了切换。
 

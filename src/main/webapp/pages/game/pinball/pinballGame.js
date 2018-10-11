@@ -1,4 +1,4 @@
-var Najax = require('./utils/najax')
+var Najax = require('../../utils/najax')
 
 var ctx = null;
 
@@ -94,7 +94,7 @@ var Game = {
 			user = JSON.parse(sessionStorage.getItem("user"));
 			if (user != null && user.mail){//表示登录了 
 				// 上传数据到服务器
-				Najax.post('common/recordScore', {score: Hud.score}).then(function(res){
+				Najax.post('game/recordScore', {score: Hud.score}).then(function(res){
 					console.log(res.result.msg);
 				}).catch(function(error){
 					console.log(error);

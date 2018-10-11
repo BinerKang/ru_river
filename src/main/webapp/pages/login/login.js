@@ -29,8 +29,6 @@ module.exports = {
 		    img.src = "authImage?date=" + new Date().getTime();
 		},
 		goToHome: function(){
-			// 对应canvas不显示
-			sessionStorage.setItem('needRefresh', true);
 			this.$router.push("/");
 		},
 		login: function(){

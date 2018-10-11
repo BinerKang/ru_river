@@ -1,0 +1,65 @@
+@charset "utf-8"; 
+  
+.pagination {
+	margin: 0;
+}   
+.pagination a {
+  text-decoration: none;
+  color: #15B;
+  background-color: #FFF;
+  border: 1px solid #ddd;
+  text-align: center;
+}
+
+.acitityTable{
+	width:100%;
+	height: 60px; 
+	line-height: 60px; 
+	padding: 0px;
+	padding-left: 10px;
+}
+
+.acitityTable span{
+	width:100px;
+	font-size:18px;
+	text-align:left;
+	color:rgba(0,0,0,0.40);
+	padding:10px;
+
+}
+
+.pagination a, .pagination span {
+  display: inline-block;
+  padding: 5px 10px;
+  font-size: 12px;
+  line-height: 1.5
+}
+
+.pagination .current {
+  border: 1px solid #ddd;
+  color: #fff;
+  background-color: #26B;
+  border: 1px solid  #ddd;
+  text-align: center;
+  padding: 5px 10px;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.pagination .current.prev, .pagination .current.next{
+	color:#999;
+	background:#fff;
+	
+}
+
+.acitityTable .select{
+	color: #202e41;
+    border-bottom: 2px solid rgb(245, 196, 35);
+}
+
+footer{
+	height: 60px;
+    position: relative;
+    line-height: 60px;
+}
+

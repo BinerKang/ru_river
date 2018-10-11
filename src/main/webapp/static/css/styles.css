@@ -27,15 +27,15 @@ a {
 }
 #overlay {  
     background: #000;  
-    filter: alpha(opacity=50); /* IE��͸���� */  
-    opacity: 0.5;  /* ͸���� */  
+    filter: alpha(opacity=50); 
+    opacity: 0.5; 
     display: none;  
     position: absolute;  
     top: 0px;  
     left: 0px;  
     width: 100%;  
     height: 100%;  
-    z-index: 100; /* �˴���ͼ��Ҫ����ҳ�� */  
+    z-index: 100;
     display:none;  
 }
 .code-img {
@@ -46,4 +46,27 @@ a {
     display: inline-block;
     vertical-align: text-bottom;
     fill: currentColor;
+}
+.experiment-repo-nav {
+    padding-bottom: 0;
+    background-color: #fafbfc;
+}
+.selected {
+	border: solid transparent;
+    color: #24292e;
+    background-color: #fff;
+    border-color: #2d1fa3 #e1e4e8 transparent;
+}
+.nav-margin-header {
+	margin-left: 50px;
+    margin-right: 5px;
+}
+.nav-margin {
+	margin-left: 5px;
+    margin-right: 5px;
+}
+.article_div {
+	padding-top: 10px!important;
+    padding-bottom: 10px!important;
+	border-bottom: 1px #e1e4e8 solid!important;
 }

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.biner.ru.mapper.ArticleMapper">
+
+	<select id="getArticles" resultType="com.biner.ru.model.Article">
+		SELECT
+			id,
+			title,
+			image,
+			introduction,
+			author,
+			DATE_FORMAT(publish_time, '%Y-%m-%d %H:%i:%s') AS publishTime,
+			link,
+			category
+		FROM
+			t_article_info
+		WHERE 1 = 1
+		<if test="null != item.category"> AND category = #{item.category}</if>
+		ORDER BY publish_time DESC
+		LIMIT #{item.pageSize} OFFSET #{item.pageNo}
+	</select>
+	
+	<select id="getArticlesCount" resultType="java.lang.Integer">
+		SELECT
+			count(1)
+		FROM
+			t_article_info
+		WHERE 1 = 1
+		<if test="null != item.category"> AND category = #{item.category}</if>
+	</select>
+	
+	<insert id="save" keyProperty="item.id" useGeneratedKeys="true">
+		INSERT INTO t_article_info 
+		(title, introduction, image, author, publish_time, link, category, updated_time, 
+			updated_by, created_time, created_by)
+		VALUES
+		(#{item.title}, #{item.introduction}, #{item.image}, #{item.author}, STR_TO_DATE(#{item.publishTime}, '%Y-%m-%d %H:%i:%s'), #{item.link}, #{item.category},
+			now(), 0, now(), 0)
+	</insert>
+
+	
+</mapper>

@@ -8,19 +8,13 @@ module.exports = {
 			ipInfo: '',
 			ipLocation:'',
 			user: '',
-			scores: '',
 			websocket: null
 		};
 	},
 	
 	created: function(){
-		// 为了对应canvas加载不出来，需要刷新当前页
-		if (sessionStorage.getItem('needRefresh')) {
-			sessionStorage.setItem('needRefresh', '');
-			location.reload();
-			return;
-		}
 		
+		// 获取home信息
 		var self = this;
 		self.user = JSON.parse(sessionStorage.getItem("user"));
     	$.ajax({
@@ -32,40 +26,45 @@ module.exports = {
     			if (result.code == 0) {
     				var ipInfo = result.data.ipInfo;
     				self.ipLocation = ipInfo?ipInfo.country:'亲爱';
-    				if (ipInfo.subdivision) {
+    				if (ipInfo != null && ipInfo.subdivision) {
     					self.ipLocation += ipInfo.subdivision;
     					if (ipInfo.city) {
     						self.ipLocation += ipInfo.city;
     					}
     				}
-    				self.scores = result.data.scores;
-    				var maxIndex = self.scores.length - 1;
-    				// 将最大值放入sessionStorage,游戏结束时比较
-    				sessionStorage.setItem("minScore", self.scores[maxIndex].score);
+    				if(self.ipLocation == '香港' || self.ipLocation == '台湾' || self.ipLocation == '澳门') {
+    					self.ipLocation = '中国' + self.ipLocation;
+    				}
     			}
     			
     		},
     		error: function(){
-    			alert('请求异常');
+    			console.log('请求异常');
     		}
     	});
     	
 	},
 	
 	mounted: function(){
-    	var game = require('../game');
-		game.setup();
 		var self = this;
-		self.openWebSocket();
+//		self.openWebSocket();
+		// 对应canvas弹球刷新
+		if (sessionStorage.getItem("pinBallReload")) {
+			$("#homeNav .selected").removeClass("selected");
+			$("#homeNav li").eq(1).children().eq(0).addClass("selected");
+		}
 	},
 	
 	methods: {
-		changePage: function(type){
-			$("#myModalCloseBtn").click();
-			if(type){
-				this.$router.push("/login");
-			} else {
-				this.$router.push("/register");
+		changePage: function(index){
+			// 变样式
+			var selObj = $("#homeNav .selected").removeClass("selected");
+			var clickObj = $("#homeNav li").eq(index).children().eq(0).addClass("selected");
+			// 跳转页面
+			if (index == 0) {
+				this.$router.push("/home/");
+			} else if (index == 1) {
+				this.$router.push("/home/pinball");
 			}
 		},
 		openWebSocket: function(){

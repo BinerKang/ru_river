@@ -1,62 +1,23 @@
 <main-layout >
 	<div hidden="true" v-title>主页</div>
-    <div class="container">
-    	<!-- 模态框（Modal） -->
-    	<button class="btn btn-primary btn-lg hidden" data-toggle="modal" id="myModalBtn" data-target="#myModal"></button>
-		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-		    <div class="modal-dialog">
-		        <div class="modal-content">
-		            <div class="modal-header">
-		                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-		                <h4 class="modal-title" id="myModalLabel">新的记录</h4>
-		            </div>
-		            <div class="modal-body">すごい(NB)！上榜了。点击注册或登录留下大名吧！</div>
-		            <div class="modal-footer">
-		                <button type="button" class="btn btn-default" id="myModalCloseBtn" data-dismiss="modal">关闭</button>
-		                <button type="button" class="btn btn-primary" @click="changePage(0)">注册</button>
-		                <button type="button" class="btn btn-primary" @click="changePage(1)">登录</button>
-		            </div>
-		        </div><!-- /.modal-content -->
-		    </div><!-- /.modal-dialog -->
+	<div class="">
+		<div >
+		  <nav class="navbar navbar-default navbar-static-top" role="navigation">
+	   		<div class="container-fluid" style="position: relative;top: 1px;">
+				<ul id="homeNav" class="nav navbar-nav">
+		            <li class="nav-margin-header"><a class= "selected navbar-brand"　@click="changePage(0)"> <span class="glyphicon glyphicon-education" ></span> 文章  </a></li>
+		            <li class="nav-margin"><a class=" navbar-brand" @click="changePage(1)"><span class="glyphicon glyphicon-knight" ></span> 小游戏  </a></li>
+		           <!--   <li class="nav-margin"><a class= "navbar-brand"> <span class="glyphicon glyphicon-bullhorn" ></span> 广播室  </a></li>
+		            <li class="nav-margin"><a class="navbar-brand"> <span class="glyphicon glyphicon-grain" ></span> 小把戏  </a></li> -->
+		            <li  class="nav-margin-header"><span class="navbar-brand"> ※ 你好，{{ user?user.username:'' }} {{ ipLocation }} 的朋友。  </span></li>
+		        </ul>
+		     </div>
+		  </nav>
 		</div>
-		<!-- /.modal -->
-		<div style="height: 40" class="page-header" >
-		    <h2 >你好，{{ user?user.username:'' }} {{ ipLocation }} 的朋友。挑战一下吧。</h2>
-		</div>
-		<div class="row" >
-			<div class="col-sm-6">
-				<div align="center">
-					<canvas id="canvas" width="408" height="250">
-				        Download Chrome to play this game now!
-				    </canvas>
-					<p> 利用左右键或鼠标控制 </p>
-				</div>
-			</div>
-			<div class="col-sm-6" >
-				<div align="left" >
-					<h4 style="border-bottom: 1px solid #e3e3f3;padding-bottom: 5px;">
-						排行榜 <small>Canvas弹球</small>
-					</h4>
-					<table class="table">
-					  <thead>
-					    <tr style="color: rgb(192, 26, 85);">
-					      <th><span class="glyphicon glyphicon-sort-by-attributes-alt"></span> 排名</th>
-					      <th><span class="glyphicon glyphicon-user" ></span> 玩家</th>
-					      <th><span class="glyphicon glyphicon-heart" >分数</span></th>
-					      <th><span class="glyphicon glyphicon-envelope" > 邮箱</span></th>
-					    </tr>
-					  </thead>
-					  <tbody>
-					    <tr v-for="(item, index) in scores" class="active">
-					      <td><span class="badge">{{ index + 1 }}</span></td>
-					      <td><span>{{ item.username }}</span></td>
-					      <td><span>{{ item.score }}</span></td>
-					      <td><span>{{ item.mail }}</span></td>
-					    </tr>
-					  </tbody>
-					</table>
-				</div>
-			</div>
-		</div>
+		<!-- 对应的组件内容渲染到router-view中 -->
+		<transition name="fade" mode="out-in">
+    		<router-view></router-view>
+    	</transition>
 	</div>
+    
 </main-layout>

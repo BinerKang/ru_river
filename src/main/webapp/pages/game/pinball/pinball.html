@@ -1,0 +1,70 @@
+<main-layout >
+	<div hidden="true" v-title>Canvas弹球</div>
+    <div class="container" >
+    	<!-- 模态框（Modal） -->
+    	<button class="btn btn-primary btn-lg hidden" data-toggle="modal" id="myModalBtn" data-target="#myModal"></button>
+		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		    <div class="modal-dialog">
+		        <div class="modal-content">
+		            <div class="modal-header">
+		                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+		                <h4 class="modal-title" id="myModalLabel">新的记录</h4>
+		            </div>
+		            <div class="modal-body">すごい(NB)！上榜了。点击注册或登录留下大名吧！</div>
+		            <div class="modal-footer">
+		                <button type="button" class="btn btn-default" id="myModalCloseBtn" data-dismiss="modal">关闭</button>
+		                <button type="button" class="btn btn-primary" @click="changePage(0)">注册</button>
+		                <button type="button" class="btn btn-primary" @click="changePage(1)">登录</button>
+		            </div>
+		        </div><!-- /.modal-content -->
+		    </div><!-- /.modal-dialog -->
+		</div>
+		<!-- /.modal -->
+		<div style="height: 40" class="page-header" >
+		    <h2 > 挑战一下吧!  O(∩_∩)O~~ </h2>
+		</div>
+		<div class="row" >
+			<div class="col-sm-12">
+				<div align="center">
+					<canvas id="canvas" width="408" height="250">
+				        Download Chrome to play this game now!
+				    </canvas>
+					<p> 利用左右键或鼠标控制 </p>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-12 " >
+				<div align="left" >
+					<h4 style="border-bottom: 1px solid #e3e3f3;padding-bottom: 5px;">
+						排行榜
+					</h4>
+				</div>
+			</div>
+		</div>
+		<div class="row" >
+			<div class="col-sm-8 col-sm-offset-2" >
+				<div align="center" >
+					<table class="table">
+					  <thead>
+					    <tr style="color: rgb(192, 26, 85);">
+					      <th><span class="glyphicon glyphicon-sort-by-attributes-alt"></span> 排名</th>
+					      <th><span class="glyphicon glyphicon-user" ></span> 玩家</th>
+					      <th><span class="glyphicon glyphicon-heart" >分数</span></th>
+					      <th><span class="glyphicon glyphicon-envelope" > 邮箱</span></th>
+					    </tr>
+					  </thead>
+					  <tbody>
+					    <tr v-for="(item, index) in scores" class="active">
+					      <td><span class="badge">{{ index + 1 }}</span></td>
+					      <td><span>{{ item.username }}</span></td>
+					      <td><span>{{ item.score }}</span></td>
+					      <td><span>{{ item.mail }}</span></td>
+					    </tr>
+					  </tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</main-layout>

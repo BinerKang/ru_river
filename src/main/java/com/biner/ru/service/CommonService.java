@@ -8,5 +8,4 @@ public interface CommonService {
 
 	public String getVerifyMailContent(String mail, String username) throws Exception ;
 	
-	public MapResult recordScore(String score, String userId);
 }

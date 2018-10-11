@@ -77,7 +77,7 @@ public class SpringWebSocketHandler extends TextWebSocketHandler {
     public void sendMessageBySessionId(String sessionId, String message) {
     	WebSocketSession user = users.get(sessionId);
         try {
-            if (user.isOpen()) {
+            if (user != null && user.isOpen()) {
                 user.sendMessage(new TextMessage(message));
             }
         } catch (IOException e) {
