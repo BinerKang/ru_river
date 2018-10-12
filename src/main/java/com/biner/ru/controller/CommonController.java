@@ -47,16 +47,23 @@ public class CommonController {
 	@RequestMapping("/token/trickConvert")
 	public void trickConvert(HttpServletRequest request, HttpServletResponse response) {
 		MapResult result = null;
-		String cmd = "python -m art text \"%s\" %s";
+		String cmd = "-m art text \"%s\" %s";
 		Process p = null;
 		InputStream is = null;
 		BufferedReader br = null;
+		String osName = System.getProperty("os.name").toLowerCase();
 		try {
 			Map<String, String> params = ParamThreadLocal.get();
 			String content = params.get("content");
 			String font = params.get("font");
 			cmd = String.format(cmd, content, font);
+			if (osName.startsWith("windows")) {// windows
+				cmd = "python " + cmd;
+			} else {// linux系统 n
+				cmd = "python3 " + cmd;
+			}
 			p = Runtime.getRuntime().exec(cmd);
+			p.waitFor();
 			 //取得命令结果的输出流  
             is = p.getInputStream();  
             //用缓冲器读行  
@@ -72,6 +79,9 @@ public class CommonController {
             data.put("art", art);
             result.setData(data);
 		} catch (IOException e) {
+			logger.error("Trick Convert has error.", e);
+			result = new MapResult(CodeMsg.FAIL, "转换异常");
+		} catch (InterruptedException e) {
 			logger.error("Trick Convert has error.", e);
 			result = new MapResult(CodeMsg.FAIL, "转换异常");
 		} finally {
@@ -92,5 +102,9 @@ public class CommonController {
 			}
 		}
 		ResponseUtil.outputJSONResponseEncrypt(request, response, result);	
+	}
+	
+	public static void main(String[] args) {
+		System.out.println(System.getProperty("os.name"));
 	}
 }
