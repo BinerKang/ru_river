@@ -1,0 +1,381 @@
+<main-layout >
+	<div hidden="true" v-title>戏法</div>
+	<div class="container">
+		<div class="col-sm-8 col-sm-offset-2">
+		<form class="" role="form">
+      	  <div class="form-group has-feedback" id="content_div">
+		    <h3><label for="content">请输入要转换的内容: <label style="color: #a94442;">(仅支持字母、数字、符号)</label></label></h3>
+		    <div >
+		      <input type="text" class="form-control" v-model="content" 
+		      	@keyup="checkContent" placeholder="请输入要转换的内容,仅支持字母、数字、符号" maxlength="30">
+		      <span class="glyphicon form-control-feedback"></span> 
+		    </div>
+		    <div class="form-group has-error" style="display:none" id="hint_div">
+		     <label class="control-label">红色框内容输入不符合，请确认后重新输入</label>
+		  	</div> 
+		  	<div style="margin-top: 5px">
+		  		<h3><label for="content">请选择字体: </label></h3>
+		  		<select class="form-control" v-model="font" style="display: inline; width: 50%;">
+			      <option value="sub-zero">sub-zero</option>
+			      <option value="swampland">swampland</option>
+			      <option value="block">block</option>
+			      <option value="3d_diagonal">3d_diagonal</option>
+			      <option value="4max">4max</option>
+			      <option value="alligator">alligator</option>
+			      <option value="alligator2">alligator2</option>
+			      <option value="arrows">arrows</option>
+			      <option value="banner">banner</option>
+			      <option value="bear">bear</option>
+			      <option value="block2">block2</option>
+			      <option value="caligraphy">caligraphy</option>
+			      <option value="cards">cards</option>
+			      <option value="chiseled">chiseled</option>
+			      <option value="computer">computer</option>
+			      <option value="dotmatrix">dotmatrix</option>
+			      <option value="heartright">heartright</option>
+			      <option value="impossible">impossible</option>
+			      <option value="isometric1">isometric1</option>
+			      <option value="isometric3">isometric3</option>
+			      <option value="larry3d">larry3d</option>
+			      <option value="marquee">marquee</option>
+			      <option value="puzzle">puzzle</option>
+			      <option value="twisted">twisted</option>
+			    </select>
+   		    	<button type="button" @click="convert" id="confirmBtn" style="float: right; " class="btn btn-primary" disabled="disabled">提 交</button>
+   		    </div>
+		  </div>
+		</form>
+		<div class="article_div">
+		   	  	<h3 >
+		   	  	    结果
+		   	  	    <button type="button" id="copyBtn" @click="copyToBoard()" style="float: right; " class="btn btn-primary" disabled="disabled" >复制到粘贴板</button>
+				</h3>
+				
+				<pre id="art_div">  
+				</pre> 
+			</div>
+			<div><h2>字体示例</h2></div>
+			<div class="article_div">
+		   	  	<h3 >
+		   	  	    sub-zero
+		   	  		<button type="button" @click="selectFont('sub-zero')" style="float: right; " class="btn btn-primary" >选择该字体</button>
+				</h3>
+				<pre >  
+ ______   ______     ______     ______  
+/\__  _\ /\  ___\   /\  ___\   /\__  _\ 
+\/_/\ \/ \ \  __\   \ \___  \  \/_/\ \/ 
+   \ \_\  \ \_____\  \/\_____\    \ \_\ 
+    \/_/   \/_____/   \/_____/     \/_/ 				
+				</pre> 
+			</div>
+			<div class="article_div">
+		   	  	<h3>swampland
+		   	  		<button type="button" @click="selectFont('swampland')" style="float: right; " class="btn btn-primary" >选择该字体</button>
+				</h3>
+				<pre >  
+ _________   ______       ______       _________  
+/________/\ /_____/\     /_____/\     /________/\ 
+\__.::.__\/ \::::_\/_    \::::_\/_    \__.::.__\/ 
+   \::\ \    \:\/___/\    \:\/___/\      \::\ \   
+    \::\ \    \::___\/_    \_::._\:\      \::\ \  
+     \::\ \    \:\____/\     /____\:\      \::\ \ 
+      \__\/     \_____\/     \_____\/       \__\/ 				
+				</pre> 
+			</div>
+			<div class="article_div">
+		   	  	<h3>block<button type="button" @click="selectFont('block')" style="float: right; " class="btn btn-primary" >选择该字体</button></h3>
+				<pre >  
+ .----------------.  .----------------.  .----------------.  .----------------.
+| .--------------. || .--------------. || .--------------. || .--------------. |
+| |  _________   | || |  _________   | || |    _______   | || |  _________   | |
+| | |  _   _  |  | || | |_   ___  |  | || |   /  ___  |  | || | |  _   _  |  | |
+| | |_/ | | \_|  | || |   | |_  \_|  | || |  |  (__ \_|  | || | |_/ | | \_|  | |
+| |     | |      | || |   |  _|  _   | || |   '.___`-.   | || |     | |      | |
+| |    _| |_     | || |  _| |___/ |  | || |  |`\____) |  | || |    _| |_     | |
+| |   |_____|    | || | |_________|  | || |  |_______.'  | || |   |_____|    | |
+| |              | || |              | || |              | || |              | |
+| '--------------' || '--------------' || '--------------' || '--------------' |
+ '----------------'  '----------------'  '----------------'  '----------------'		
+				</pre> 
+			</div>
+			 <div class="article_div">
+		   	  	<h3>3d_diagonal<button type="button" @click="selectFont('3d_diagonal')" style="float: right; " class="btn btn-primary" >选择该字体</button></h3>
+				<pre >
+    ___                                 ___    
+  ,--.'|_                             ,--.'|_   
+  |  | :,'                            |  | :,'  
+  :  : ' :               .--.--.      :  : ' :  
+.;__,'  /      ,---.    /  /    '   .;__,'  /   
+|  |   |      /     \  |  :  /`./   |  |   |    
+:__,'| :     /    /  | |  :  ;_     :__,'| :    
+  '  : |__  .    ' / |  \  \    `.    '  : |__  
+  |  | '.'| '   ;   /|   `----.   \   |  | '.'| 
+  ;  :    ; '   |  / |  /  /`--'  /   ;  :    ; 
+  |  ,   /  |   :    | '--'.     /    |  ,   /  
+   ---`-'    \   \  /    `--'---'      ---`-'   
+              `----' 
+				 </pre> 
+			  </div>
+			  <div class="article_div">
+		   	  	<h3>4max<button type="button" @click="selectFont('4max')" style="float: right; " class="btn btn-primary" >选择该字体</button></h3>
+				<pre >  
+888888 888888 .dP"Y8 888888 
+  88   88__   `Ybo."   88   
+  88   88""   o.`Y8b   88   
+  88   888888 8bodP'   88  				 
+				</pre> 
+			  </div>                       
+  			<div class="article_div">
+		   	  	<h3>alligator<button type="button" @click="selectFont('alligator')" style="float: right; " class="btn btn-primary" >选择该字体</button></h3>
+				<pre >  
+  :::::::::::       ::::::::::       ::::::::   ::::::::::: 
+     :+:           :+:             :+:    :+:      :+:      
+    +:+           +:+             +:+             +:+       
+   +#+           +#++:++#        +#++:++#++      +#+        
+  +#+           +#+                    +#+      +#+         
+ #+#           #+#             #+#    #+#      #+#          
+###           ##########       ########       ###    				
+				</pre> 
+			</div>
+  			<div class="article_div">
+		   	  	<h3>alligator2<button type="button" @click="selectFont('alligator2')" style="float: right; " class="btn btn-primary" >选择该字体</button></h3>
+				<pre >  
+::::::::::: ::::::::::  ::::::::  ::::::::::: 
+    :+:     :+:        :+:    :+:     :+:     
+    +:+     +:+        +:+            +:+     
+    +#+     +#++:++#   +#++:++#++     +#+     
+    +#+     +#+               +#+     +#+     
+    #+#     #+#        #+#    #+#     #+#     
+    ###     ##########  ########      ###  				
+				</pre> 
+			</div>
+  			<div class="article_div">
+		   	  	<h3>arrows<button type="button" @click="selectFont('arrows')" style="float: right; " class="btn btn-primary" >选择该字体</button></h3>
+				<pre >  
+  >=>                       >=>   
+  >=>                       >=>   
+>=>>==>   >==>     >===>  >=>>==> 
+  >=>   >>   >=>  >=>       >=>   
+  >=>   >>===>>=>   >==>    >=>   
+  >=>   >>            >=>   >=>   
+   >=>   >====>   >=> >=>    >=>  				
+				</pre> 
+			</div>
+			<div class="article_div">
+		   	  	<h3>banner<button type="button" @click="selectFont('banner')" style="float: right; " class="btn btn-primary" >选择该字体</button></h3>
+				<pre >  
+##### ######  ####  ##### 
+  #   #      #        #   
+  #   #####   ####    #   
+  #   #           #   #   
+  #   #      #    #   #   
+  #   ######  ####    #  				
+				</pre> 
+			</div>
+			<div class="article_div">
+		   	  	<h3>bear<button type="button" @click="selectFont('bear')" style="float: right; " class="btn btn-primary" >选择该字体</button></h3>
+				<pre >  
+   _     _      _     _      _     _      _     _   
+  (c).-.(c)    (c).-.(c)    (c).-.(c)    (c).-.(c)  
+   / ._. \      / ._. \      / ._. \      / ._. \   
+ __\( Y )/__  __\( Y )/__  __\( Y )/__  __\( Y )/__ 
+(_.-/'-'\-._)(_.-/'-'\-._)(_.-/'-'\-._)(_.-/'-'\-._)
+   || T ||      || E ||      || S ||      || T ||   
+ _.' `-' '._  _.' `-' '._  _.' `-' '._  _.' `-' '._ 
+(.-./`-'\.-.)(.-./`-'\.-.)(.-./`-`\.-.)(.-./`-'\.-.)
+ `-'     `-'  `-'     `-'  `-'     `-'  `-'     `-' 				
+				</pre> 
+			</div>
+			<div class="article_div">
+		   	  	<h3>block2<button type="button" @click="selectFont('block2')" style="float: right; " class="btn btn-primary" >选择该字体</button></h3>
+				<pre >  
+  _|                            _|      
+_|_|_|_|    _|_|      _|_|_|  _|_|_|_|  
+  _|      _|_|_|_|  _|_|        _|      
+  _|      _|            _|_|    _|      
+    _|_|    _|_|_|  _|_|_|        _|_|  
+                                        				
+				</pre> 
+			</div>
+			<div class="article_div">
+		   	  	<h3>caligraphy<button type="button" @click="selectFont('caligraphy')" style="float: right; " class="btn btn-primary" >选择该字体</button></h3>
+				<pre >  
+                                         
+    *                              *     
+   **                             **     
+   **                             **     
+ ********              ****     ******** 
+********     ***      * **** * ********  
+   **       * ***    **  ****     **     
+   **      *   ***  ****          **     
+   **     **    ***   ***         **     
+   **     ********      ***       **     
+   **     *******         ***     **     
+   **     **         ****  **     **     
+   **     ****    * * **** *      **     
+    **     *******     ****        **    
+            *****       				
+				</pre> 
+			</div>
+			<div class="article_div">
+		   	  	<h3>cards<button type="button" @click="selectFont('cards')" style="float: right; " class="btn btn-primary" >选择该字体</button></h3>
+				<pre >  
+.------..------..------..------.
+|T.--. ||E.--. ||S.--. ||T.--. |
+| :/\: || (\/) || :/\: || :/\: |
+| (__) || :\/: || :\/: || (__) |
+| '--'T|| '--'E|| '--'S|| '--'T|
+`------'`------'`------'`------'				
+				</pre> 
+			</div>
+			<div class="article_div">
+		   	  	<h3>chiseled<button type="button" @click="selectFont('chiseled')" style="float: right; " class="btn btn-primary" >选择该字体</button></h3>
+				<pre >  
+ ,--.--------.       ,----.     ,-,--.   ,--.--------.  
+/==/,  -   , -\   ,-.--` , \  ,-.'-  _\ /==/,  -   , -\ 
+\==\.-.  - ,-./  |==|-  _.-` /==/_ ,_.' \==\.-.  - ,-./ 
+ `--`\==\- \     |==|   `.-. \==\  \     `--`\==\- \    
+      \==\_ \   /==/_ ,    /  \==\ -\         \==\_ \   
+      |==|- |   |==|    .-'   _\==\ ,\        |==|- |   
+      |==|, |   |==|_  ,`-._ /==/\/ _ |       |==|, |   
+      /==/ -/   /==/ ,     / \==\ - , /       /==/ -/   
+      `--`--`   `--`-----``   `--`---'        `--`--`   				
+				</pre> 
+			</div>
+			<div class="article_div">
+		   	  	<h3>computer<button type="button" @click="selectFont('computer')" style="float: right; " class="btn btn-primary" >选择该字体</button></h3>
+				<pre >  
+eeeee eeee eeeee eeeee 
+  8   8    8   "   8   
+  8e  8eee 8eeee   8e  
+  88  88      88   88  
+  88  88ee 8ee88   88  				
+				</pre> 
+			</div>
+			<div class="article_div">
+		   	  	<h3>dotmatrix<button type="button" @click="selectFont('dotmatrix')" style="float: right; " class="btn btn-primary" >选择该字体</button></h3>
+				<pre >  
+    _                                                    _            
+   (_)                                                  (_)           
+ _ (_) _  _        _  _  _  _         _  _  _  _      _ (_) _  _      
+(_)(_)(_)(_)      (_)(_)(_)(_)_     _(_)(_)(_)(_)    (_)(_)(_)(_)     
+   (_)           (_) _  _  _ (_)   (_)_  _  _  _        (_)           
+   (_)     _     (_)(_)(_)(_)(_)     (_)(_)(_)(_)_      (_)     _     
+   (_)_  _(_)    (_)_  _  _  _        _  _  _  _(_)     (_)_  _(_)    
+     (_)(_)        (_)(_)(_)(_)      (_)(_)(_)(_)         (_)(_)     				
+				</pre> 
+			</div>
+			<div class="article_div">
+		   	  	<h3>heartright<button type="button" @click="selectFont('heartright')" style="float: right; " class="btn btn-primary" >选择该字体</button></h3>
+				<pre >  
+.-.-.  .-.-.  .-.-.  .-.-.  
+'. t ) '. e ) '. s ) '. t ) 
+  ).'    ).'    ).'    ).'				
+				</pre> 
+			</div>
+			<div class="article_div">
+		   	  	<h3>impossible<button type="button" @click="selectFont('impossible')" style="float: right; " class="btn btn-primary" >选择该字体</button></h3>
+				<pre >  
+       _                _              _               _       
+      /\ \             /\ \           / /\            /\ \     
+      \_\ \           /  \ \         / /  \           \_\ \    
+      /\__ \         / /\ \ \       / / /\ \__        /\__ \   
+     / /_ \ \       / / /\ \_\     / / /\ \___\      / /_ \ \  
+    / / /\ \ \     / /_/_ \/_/     \ \ \ \/___/     / / /\ \ \ 
+   / / /  \/_/    / /____/\         \ \ \          / / /  \/_/ 
+  / / /          / /\____\/     _    \ \ \        / / /        
+ / / /          / / /______    /_/\__/ / /       / / /         
+/_/ /          / / /_______\   \ \/___/ /       /_/ /          
+\_\/           \/__________/    \_____\/        \_\/      				
+				</pre> 
+			</div>
+			<div class="article_div">
+		   	  	<h3>isometric1<button type="button" @click="selectFont('isometric1')" style="float: right; " class="btn btn-primary" >选择该字体</button></h3>
+				<pre >  
+      ___           ___           ___           ___     
+     /\  \         /\  \         /\  \         /\  \    
+     \:\  \       /::\  \       /::\  \        \:\  \   
+      \:\  \     /:/\:\  \     /:/\ \  \        \:\  \  
+      /::\  \   /::\~\:\  \   _\:\~\ \  \       /::\  \ 
+     /:/\:\__\ /:/\:\ \:\__\ /\ \:\ \ \__\     /:/\:\__\
+    /:/  \/__/ \:\~\:\ \/__/ \:\ \:\ \/__/    /:/  \/__/
+   /:/  /       \:\ \:\__\    \:\ \:\__\     /:/  /     
+   \/__/         \:\ \/__/     \:\/:/  /     \/__/      
+                  \:\__\        \::/  /                 
+                   \/__/         \/__/                  
+				
+				</pre> 
+			</div>
+			<div class="article_div">
+		   	  	<h3>isometric3<button type="button" @click="selectFont('isometric3')" style="float: right; " class="btn btn-primary" >选择该字体</button></h3>
+				<pre >  
+                  ___           ___                 
+      ___        /  /\         /  /\          ___   
+     /  /\      /  /:/_       /  /:/_        /  /\  
+    /  /:/     /  /:/ /\     /  /:/ /\      /  /:/  
+   /  /:/     /  /:/ /:/_   /  /:/ /::\    /  /:/   
+  /  /::\    /__/:/ /:/ /\ /__/:/ /:/\:\  /  /::\   
+ /__/:/\:\   \  \:\/:/ /:/ \  \:\/:/~/:/ /__/:/\:\  
+ \__\/  \:\   \  \::/ /:/   \  \::/ /:/  \__\/  \:\ 
+      \  \:\   \  \:\/:/     \__\/ /:/        \  \:\
+       \__\/    \  \::/        /__/:/          \__\/
+                 \__\/         \__\/                				
+				</pre> 
+			</div>
+			<div class="article_div">
+		   	  	<h3>larry3d<button type="button" @click="selectFont('larry3d')" style="float: right; " class="btn btn-primary" >选择该字体</button></h3>
+				<pre >  
+ __                       __      
+/\ \__                   /\ \__   
+\ \ ,_\     __     ____  \ \ ,_\  
+ \ \ \/   /'__`\  /',__\  \ \ \/  
+  \ \ \_ /\  __/ /\__, `\  \ \ \_ 
+   \ \__\\ \____\\/\____/   \ \__\
+    \/__/ \/____/ \/___/     \/__/
+                                  				
+				</pre> 
+			</div>
+			<div class="article_div">
+		   	  	<h3>marquee<button type="button" @click="selectFont('marquee')" style="float: right; " class="btn btn-primary" >选择该字体</button></h3>
+				<pre >  
+  .::                     .::  
+  .::                     .::  
+.:.: .:   .::     .:::: .:.: .:
+  .::   .:   .:: .::      .::  
+  .::  .::::: .::  .:::   .::  
+  .::  .:            .::  .::  
+   .::   .::::   .:: .::   .:: 				
+				</pre> 
+			</div>
+			<div class="article_div">
+		   	  	<h3>puzzle<button type="button" @click="selectFont('puzzle')" style="float: right; " class="btn btn-primary" >选择该字体</button></h3>
+				<pre >  
+     _         _         _         _    
+   _( )__    _( )__    _( )__    _( )__ 
+ _|     _| _|     _| _|     _| _|     _|
+(_ T _ (_ (_ E _ (_ (_ S _ (_ (_ T _ (_ 
+  |_( )__|  |_( )__|  |_( )__|  |_( )__|				
+				</pre> 
+			</div>
+			<div class="article_div">
+		   	  	<h3>twisted<button type="button" @click="selectFont('twisted')" style="float: right; " class="btn btn-primary" >选择该字体</button></h3>
+				<pre >  
+  _______      _____   ______    _______   
+/\_______)\  /\_____\ / ____/\ /\_______)\ 
+\(___  __\/ ( (_____/ ) ) __\/ \(___  __\/ 
+  / / /      \ \__\    \ \ \     / / /     
+ ( ( (       / /__/_   _\ \ \   ( ( (      
+  \ \ \     ( (_____\ )____) )   \ \ \     
+  /_/_/      \/_____/ \____\/    /_/_/    				
+				</pre> 
+			</div>
+		</div>
+	</div>
+	<div align="center">
+       	基于python的art模块实现: 
+       	<div >
+       		<a href="https://github.com/sepandhaghighi/art" target="_blank">sepandhaghighi / art</a>
+       	</div>
+       </div>
+    
+</main-layout>

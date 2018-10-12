@@ -276,3 +276,23 @@ vi $tomcat/conf/server.xml
 wget http://geolite.maxmind.com/download/geoip/database/GeoLite2-City.tar.gz 
 tar xzf GeoLite2-City.tar.gz 
 替换掉/usr/local/GeoLite2-City.mmdb
+
+
+=========================
+安装Python3.6 art
+=========================
+安装python3.6可能使用的依赖
+yum install openssl-devel bzip2-devel expat-devel gdbm-devel readline-devel sqlite-devel
+
+wget https://www.python.org/ftp/python/3.6.0/Python-3.6.0.tgz
+tar -xzvf Python-3.6.0.tgz -C  /tmp
+cd  /tmp/Python-3.6.0/
+#把Python3.6安装到 /usr/local 目录
+./configure --prefix=/usr/local/python3.6
+make
+make altinstall
+#创建软连接
+ln -s /usr/local/bin/python3.6 /usr/bin/python3
+ln -s /usr/local/bin/pip3.6 /usr/bin/pip3
+#安装art模块
+pip3 install art

@@ -35,7 +35,7 @@ module.exports = {
     			
     		},
     		error: function(){
-    			alert('请求异常');
+    			console.log('请求异常');
     		}
     	});
     	

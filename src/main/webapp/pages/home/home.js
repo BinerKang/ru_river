@@ -65,6 +65,10 @@ module.exports = {
 				this.$router.push("/home/");
 			} else if (index == 1) {
 				this.$router.push("/home/pinball");
+			} else if (index == 2) {
+				this.$router.push("/home/trick");
+			} else if (index == 3){
+				this.$router.push("/home/broadcast");
 			}
 		},
 		openWebSocket: function(){

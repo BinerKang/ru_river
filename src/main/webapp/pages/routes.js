@@ -10,7 +10,16 @@ module.exports = [
         	{
         		path:"pinball",
         		component: require('./game/pinball/pinball')
-        	}
+        	},
+        	{
+        		path:"trick",
+        		component: require('./trick/trick')
+        	},
+        	 // 404
+            {
+                path: '*', 
+                component: require('./404/404') 
+            }
         ]
     },
     {
