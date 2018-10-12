@@ -47,7 +47,7 @@ public class CommonController {
 	@RequestMapping("/token/trickConvert")
 	public void trickConvert(HttpServletRequest request, HttpServletResponse response) {
 		MapResult result = null;
-		String cmd = "-m art text \"%s\" %s";
+		
 		Process p = null;
 		InputStream is = null;
 		BufferedReader br = null;
@@ -56,13 +56,16 @@ public class CommonController {
 			Map<String, String> params = ParamThreadLocal.get();
 			String content = params.get("content");
 			String font = params.get("font");
-			cmd = String.format(cmd, content, font);
 			if (osName.startsWith("windows")) {// windows
-				cmd = "python " + cmd;
-			} else {// linux系统 n
-				cmd = "python3 " + cmd;
+				String cmd = "python -m art text \"%s\" %s";
+				cmd = String.format(cmd, content, font);
+				p = Runtime.getRuntime().exec(cmd);
+				logger.info("CMD is: " + cmd);
+			} else {// linux系统 
+				String[] cmd = {"python3", "-m", "art", "text", content, font};
+				logger.info("CMD is: " + cmd.toString());
+				p = Runtime.getRuntime().exec(cmd);
 			}
-			p = Runtime.getRuntime().exec(cmd);
 			p.waitFor();
 			 //取得命令结果的输出流  
             is = p.getInputStream();  
