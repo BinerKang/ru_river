@@ -30,7 +30,7 @@ public class CommonServiceImpl implements CommonService {
 		Map<String, Object> data = new HashMap<String, Object>();
 		IpInfo ipInfo = null;
 		try {
-			ipInfo = MaxMindUtils.getIpInfo(ip); 
+			ipInfo = MaxMindUtils.getIpInfo(ip);
 		} catch (Exception e) {
 			logger.error("Request Freegeoip has error:::", e);
 		}

@@ -15,6 +15,10 @@ module.exports = [
         		path:"trick",
         		component: require('./trick/trick')
         	},
+        	{
+        		path:"broadcast",
+        		component: require('./chat/chat')
+        	},
         	 // 404
             {
                 path: '*', 

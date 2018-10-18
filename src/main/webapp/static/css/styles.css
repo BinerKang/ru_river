@@ -70,3 +70,44 @@ a {
     padding-bottom: 10px!important;
 	border-bottom: 1px #e1e4e8 solid!important;
 }
+.border-div {
+	border: 1px solid #e1e4e8;
+}
+.chat-mem {
+	margin: 5px 2px 5px 5px;
+}
+.chat-content {
+    top: 0px;
+    left: 0px;
+    margin-left: 5%;
+    z-index: 1060;
+    max-width: 75%;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.42857;
+    text-align: start;
+    text-shadow: none;
+    text-transform: none;
+    letter-spacing: normal;
+    width: 100%;  
+    height: auto;  
+    word-wrap:break-word;  
+    word-break:break-all;  
+    overflow: hidden;  
+    word-spacing: normal;
+    overflow-wrap: normal;
+    white-space: normal;
+    background-color: rgb(255, 255, 255);
+    background-clip: padding-box;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 5px 10px;
+    line-break: auto;
+    padding: 5px;
+    text-decoration: none;
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgba(0, 0, 0, 0.2);
+    border-image: initial;
+    border-radius: 6px;
+}
