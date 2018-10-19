@@ -52,16 +52,22 @@ module.exports = {
 		    		}
 		    		self.members = members;
 		    	}
+		    	self.getLocation(from);
+		    	self.member = from;
+		    	var divs = '';
 		    	if (type == 0) {//普通消息
-		    		self.getLocation(from);
-		    		self.member = from;
 		    		self.msg = chatInfo.msg;
-		    		self.appendMsg();
+		    		divs = '<div class="chat-mem"> ' + self.member.ip + '[' + self.member.location + ' ' + new Date().toTimeString()+']: </div>'+
+ 				   				'<div class="chat-content" >' + self.msg + '</div>';		
 		    	} else if (type == 1) {// 加入
-		    		
+		    		if (!from) {
+		    			return;
+		    		}
+		    		divs = '<div class="chat-mem" align="center" style="color: blue;"> ' + self.member.ip + '[' + self.member.location + ' ' + new Date().toTimeString()+']已加入</div>'
 		    	} else if (type == 2) {// 离开
-		    		
+		    		divs = '<div class="chat-mem" align="center" style="color: red;"> ' + self.member.ip + '[' + self.member.location + ' ' + new Date().toTimeString()+']已离开</div>'
 		    	}
+		    	self.appendMsg(divs);
 		    };
 		    self.websocket.onerror = function(){
 		    	
@@ -71,11 +77,12 @@ module.exports = {
 		    };
 		    
 		},
-		appendMsg: function(){
+		appendMsg: function(divs){
 			var self = this;
-			var divs = '<div class="chat-mem"> ' + self.member.ip + '[' + self.member.location + ' ' + new Date().toTimeString()+']: </div>'+
-    				   '<div class="chat-content" >' + self.msg + '</div>';		
 			$("#chat-board").append($(divs));
+			var height = $("#chat-board")[0].scrollHeight;
+			$("#chat-board").scrollTop(height);
+			
 		},
 		sendMsg: function() {
 			var self = this;
@@ -89,7 +96,7 @@ module.exports = {
 		},
 		checkMsg: function(event) {
 			var self = this;
-			if (self.content) {
+			if ($.trim(self.content)) {
 				$("#sendBtn").attr("disabled", false);
 			} else {
 				$("#sendBtn").attr("disabled", true);
@@ -97,7 +104,7 @@ module.exports = {
 			
 		},
 		getLocation: function(ipInfo) {
-			var ipLocation = ipInfo.country?ipInfo.country:'未知asdfasdfasdfasdfasdfasdfadsf';
+			var ipLocation = ipInfo.country?ipInfo.country:'未知';
 			if (ipInfo.country != null && ipInfo.subdivision) {
 				self.ipLocation += ipInfo.subdivision;
 				if (ipInfo.city) {

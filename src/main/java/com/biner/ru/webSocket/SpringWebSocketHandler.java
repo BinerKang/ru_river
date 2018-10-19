@@ -59,7 +59,7 @@ public class SpringWebSocketHandler extends TextWebSocketHandler {
         }
         // 发送成员列表给新加入的人
         users.put(sessionId, session);
-        chat = new ChatInfo(chatMembers.values(), null, ipInfo, ChatInfo.JOIN);
+        chat = new ChatInfo(chatMembers.values(), null, null, ChatInfo.JOIN);
         sendMessageBySessionId(sessionId, chat);
     }
     
