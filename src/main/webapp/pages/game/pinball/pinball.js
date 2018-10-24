@@ -77,11 +77,12 @@ module.exports = {
 		    	
 		    };
 		    websocket.onmessage = function(evt) {
-		    	self.scores = JSON.parse(evt.data);
-		    	if (self.scores) {
+		    	var scores = JSON.parse(evt.data);
+		    	if (scores.length) {
 		    		// 更新最大值
-		    		var maxIndex = self.scores.length - 1;
-		    		sessionStorage.setItem("minScore", self.scores[maxIndex].score);
+		    		self.scores = scores;
+		    		var maxIndex = scores.length - 1;
+		    		sessionStorage.setItem("minScore", scores[maxIndex].score);
 		    	}
 		    };
 		    websocket.onerror = function(){
