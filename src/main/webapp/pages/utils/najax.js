@@ -53,6 +53,11 @@ var ajaxAsync = function(type, method, url, data, cb, needMask) {
 	    			}
 	    		},
 				success: function(data) {
+					//失效 跳转登录
+					if(data && data.result.code == 1112){
+						window.location.href = "#/login";
+						return;
+					}
 					resolve(data);
 				},
 				error: function(XMLHttpRequest, textStatus, errorThrown) {

@@ -139,6 +139,6 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	public static void main(String[] args) {
-		System.out.println(DigestUtils.md5Hex("123asd"));
+		System.out.println(DigestUtils.md5Hex("jiahe168"));
 	}
 }

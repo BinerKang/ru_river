@@ -1,0 +1,225 @@
+.page-container .main-content{
+	background: #F0F0F0;
+}
+.tit-top{
+	width: 100%;
+	height: 50px;
+	position: absolute;
+    top: 82px;
+    font-size: 16px;
+}
+.tit-top a{
+	cursor: pointer;
+    font-size: 22px;
+    position: relative;
+    padding: 0 10px;
+    color: #45484C;
+}
+.tit-top span{
+	vertical-align: top;
+}
+/************模板样式Start*************/
+.page_count{
+    height: 30px;
+    line-height: 30px;
+    margin: 0 10px
+}
+.no-padding {
+    padding: 0 !important
+}
+.no-margin {
+	margin: 0 !important
+}
+.table{
+	border-bottom:1px solid #EBEBEB
+}
+.table>thead>tr>th{
+    text-align: center;
+    background-color: #f8f8f8;
+    border: none
+}
+.table-wide > tbody > tr > td,.table-wide > thead > tr > th{
+	padding:15px 8px
+}
+.panel-footer{
+	background: #FFF;
+	padding: 10px 15px 20px;
+	border: none
+}
+.container-fluid{
+	padding:10px
+}
+.outlet{
+	background:#FFF;
+	margin:10px 10px 0 10px
+}
+.form-horizontal .form-group .form-control{
+	height: 32px;
+    box-shadow: none;
+    border: 1px solid #C7C7C7
+}
+.form-horizontal .form-group .control-label{
+	text-align: left;
+    font-weight: normal
+}
+.panel .panel-heading{
+	padding: 24px;
+}
+.panel .panel-heading .panel-title{
+	font-size:14px
+}
+.panel{
+    margin: 0;
+    box-shadow: none;
+    border: none
+}
+.form-group .unloadTemplet{
+	cursor: pointer !important;
+    font-size: 14px;
+    text-decoration: underline;
+    color: #0081D6
+}
+.fancy-checkbox {
+    display: block;
+    font-weight: normal;
+    margin: 0
+}
+.fancy-checkbox input[type="checkbox"] {
+    display: none
+}
+.fancy-checkbox input[type="checkbox"] + span {
+    display: inline-block;
+    vertical-align: middle;
+    cursor: pointer;
+    position: relative;
+    font-size: 13px
+}
+.fancy-checkbox input[type="checkbox"] + span:before {
+    display: inline-block;
+    vertical-align: middle;
+    position: relative;
+    width: 20px;
+    height: 20px;
+    content: "";
+    /*background: #E0E0E0;
+    border-radius:100%;
+    border: 1px solid #CCC;*/
+    background: url(../img/btn-choose-empty@2x.png) no-repeat;
+    background-size: contain;
+}
+.fancy-checkbox input[type="checkbox"]:checked + span:before {
+    /*content: '\2714';
+    background: #F5C423;
+    border: 1px solid #F5C423;*/
+    font-size: 16px;
+    color: #FFF;
+    text-align: center;
+    line-height: 18px;
+    background: url(../img/btn-choose@2x.png) no-repeat;
+    background-size: contain;
+}
+.form-inline .control-label{
+    font-size: 14px;
+    margin: 0 12px 0 24px;
+    font-weight:normal;
+}
+.form-inline .form-control{
+	height: 36px;
+	box-shadow: none;
+    border: 1px solid #C7C7C7
+}
+/********BUTTON自定义样式*********/
+.btn-margin{
+	margin:0 10px !important
+}
+.btn-lg{
+	padding: 8px 30px
+}
+.btn-max-lg{
+	padding: 8px 60px
+}
+.public-btn{
+	background-color: #f5c423;
+    border-color: #f5c423;
+    color: #202e41;
+    font-size: 14px
+}
+.public-btn:hover, .public-btn:focus, .public-btn.focus, .public-btn.active, .public-btn:active{
+    background-color: #D4A715;
+    border-color: #D4A715;
+    color: #202e41;
+    outline: 0
+}
+.public-btn.active.focus,.public-btn.active:focus,.public-btn.active:hover,public-btn:active.focus,.public-btn:active:focus,.public-btn:active:hover{
+    background-color: #D4A715;
+    border-color: #D4A715;
+    color: #202e41;
+    outline: 0
+}
+.search-btn{
+	background-color: #202e41;
+    border-color: #202e41;
+	color:#f5c423;
+    font-size: 14px;
+    margin-left: 14px !important;
+}
+.search-btn:hover, .search-btn:focus, .search-btn.focus, .search-btn.active, .search-btn:active{
+	background-color: #202e41;
+    border-color: #202e41;
+	color:#f5c423;
+    outline: 0
+}
+.search-btn.active.focus,.search-btn.active:focus,.search-btn.active:hover,search-btn:active.focus,.search-btn:active:focus,.search-btn:active:hover{
+	background-color: #202e41;
+    border-color: #202e41;
+	color:#f5c423;
+    outline: 0
+}
+.del-btn{
+	background-color: #FFF;
+    border: 1px solid #949494;
+    color: #202e41;
+    font-size: 14px
+}
+.del-btn:hover, .del-btn:focus, .del-btn.focus, .del-btn.active, .del-btn:active{
+	background-color: #202e41;
+    border-color: #202e41;
+	color:#f5c423;
+    outline: 0
+}
+.del-btn.active.focus,.del-btn.active:focus,.del-btn.active:hover,del-btn:active.focus,.del-btn:active:focus,.del-btn:active:hover{
+	background-color: #202e41;
+    border-color: #202e41;
+	color:#f5c423;
+    outline: 0
+}
+/********BUTTON自定义样式END********/
+.shopMask {
+    background-color: rgba(0,0,0,.5);
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    z-index: 999;
+    overflow-y:auto;
+}
+.recordsContent {
+    position: absolute;
+    background-color: #fff;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    width: 60%;
+    height: 600px;
+    margin: auto;
+    z-index: 1010;
+    overflow: scroll;
+}
+.allCar {
+    display: flex;
+    flex-flow: column;
+    height:100%;
+    padding: 50px;
+}

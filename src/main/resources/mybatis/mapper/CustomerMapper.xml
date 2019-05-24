@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.biner.ru.mapper.CustomerMapper">
+
+	<select id="getCustomers" resultType="com.biner.ru.model.Customer">
+		SELECT
+			id,
+			telphone,
+			name,
+			gender,
+			estate,
+			address,
+			url,
+			phase,
+			info,
+			DATE_FORMAT(created_time, '%Y-%m-%d %H:%i:%s') AS createdTime,
+			DATE_FORMAT(updated_time, '%Y-%m-%d %H:%i:%s') AS updatedTime,
+			created_by AS createdBy,
+			updated_by AS updatedBy
+		FROM
+			t_customer_info
+		WHERE 1 = 1
+		ORDER BY updated_time DESC
+		LIMIT #{item.pageSize} OFFSET #{item.pageNo}
+	</select>
+	
+	<select id="getCustomersCount" resultType="java.lang.Integer">
+		SELECT
+			count(1)
+		FROM
+			t_customer_info
+		WHERE 1 = 1
+	</select>
+	
+	<insert id="save" keyProperty="item.id" useGeneratedKeys="true">
+		INSERT INTO t_customer_info 
+		(telphone, name, gender, estate, address, url, phase, info, updated_time, 
+			updated_by, created_time, created_by)
+		VALUES
+		(#{item.telphone}, #{item.name}, #{item.gender}, #{item.estate}, #{item.address},
+		 #{item.url}, #{item.phase}, #{item.info}, now(), 0, now(), 0)
+	</insert>
+
+	
+</mapper>

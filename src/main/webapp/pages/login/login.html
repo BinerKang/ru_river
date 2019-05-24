@@ -13,10 +13,10 @@
 		</div>
       	<form class="form-horizontal" role="form">
       	  <div class="form-group has-feedback" id="mail_div">
-		    <label class="col-sm-2 control-label" for="mail">邮箱</label>
+		    <label class="col-sm-2 control-label" for="mail">账号</label>
 		    <div class="col-sm-10">
 		      <input type="text" class="form-control" v-model="mail" 
-		      	@keyup="checkMail" placeholder="请输入邮箱" maxlength="30">
+		      	@keyup="checkMail" placeholder="请输入账号" maxlength="30">
 		      <span class="glyphicon form-control-feedback"></span> 
 		    </div>
 		  </div>
@@ -33,7 +33,7 @@
 		    <label class="col-sm-2 control-label" for="mail">验证码</label>
 		    <div class="col-sm-7">
 		      <input type="text" class="form-control" v-model="code"
-		       @keyup="checkCode" placeholder="请输入验证码" maxlength="4">
+		       @keyup="checkCode($event)" placeholder="请输入验证码" maxlength="4">
 		      <span class="glyphicon form-control-feedback"></span> 
 		    </div>
 		    <div class="col-sm-3">

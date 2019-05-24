@@ -1,38 +1,18 @@
 module.exports = [
     {
-        path:"/home",
-        component: require('./home/home'),
+    	path:"/home",
+        component: require('./home/manage'),
         children: [
         	{
         		path:"",
-        		component: require("./article/article")
+        		component: require("./customer/manage")
         	},
-        	{
-        		path:"pinball",
-        		component: require('./game/pinball/pinball')
-        	},
-        	{
-        		path:"trick",
-        		component: require('./trick/trick')
-        	},
-        	{
-        		path:"broadcast",
-        		component: require('./chat/chat')
-        	},
-        	 // 404
+        	// 404
             {
                 path: '*', 
                 component: require('./404/404') 
             }
         ]
-    },
-    {
-    	path:"/register",
-    	component: require('./register/register')
-    },
-    {
-    	path:"/authMail/:token",
-    	component: require('./authMail/authMail')
     },
     {
     	path:"/login",

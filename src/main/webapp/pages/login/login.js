@@ -30,6 +30,8 @@ module.exports = {
 		},
 		goToHome: function(){
 			this.$router.push("/");
+			// 刷新页面
+			window.location.reload();
 		},
 		login: function(){
 			var self = this;
@@ -51,6 +53,7 @@ module.exports = {
 					msg = "登录成功！";
 					self.success = true;
 					sessionStorage.setItem("user", JSON.stringify(user));
+					self.goToHome();
 				}
 				//刷新验证码，清空验证码
 				$("#img").click();
@@ -70,15 +73,20 @@ module.exports = {
 		},
 		checkMail: function() {
 			var self = this;
-			self.mailFlag = /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/.test(self.mail);
+//			self.mailFlag = /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/.test(self.mail);
+			self.mailFlag = true;
 			self.hintForm("mail_div", self.mailFlag);
 			self.enableRegister();
 		},
-		checkCode: function() {
+		checkCode: function(ev) {
 			var self = this;
 			self.codeFlag = self.code.length == 4;
 			self.hintForm("code_div", self.codeFlag);
 			self.enableRegister();
+			//按了回车键
+			if(ev.keyCode == 13){
+				$("#loginBtn").click();
+            }
 		},
 		hintForm: function(eleId, flag) {
 			if (flag) {

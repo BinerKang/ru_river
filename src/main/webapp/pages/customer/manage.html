@@ -1,0 +1,167 @@
+<main-layout>
+	<link rel="stylesheet" href="pages/customer/manage.css">
+	<div hidden="true" v-title>客户信息</div>
+	
+	<!-- 弹框 -->
+	<div class="mask hidden">
+		<div id="dialogCustomer" title="客户信息" style="padding: 0;overflow: visible">
+			<!-- 编辑框提示 -->
+			<div class="copy-tip" v-show="tipBox"></div>
+			<!-- 提示2 -->
+			<div v-show="isSuccess">
+				<div class="mask"></div>
+				<div class="pop-comment pop-ok">
+					<div class="inner-box">
+						<p class="ok">编辑成功</p>
+					</div>
+					<div class="but-box singe-but">
+						<span @click="hideTip2()">好的</span>
+					</div>
+				</div>
+			</div>		
+			<div class="row">
+				<div class="col-md-12">
+					<div class="panel">
+		            	<div class="panel-body">
+		                	<form class="form-horizontal">
+		                        <div class="form-group">
+		                            <label class="col-md-3 control-label">手机*</label>
+		                            <div class="col-md-9">
+		                            	<input type="text" maxlength=16 id="telphone" v-model="telphone" class="form-control"/>
+		                            </div>
+		                        </div>
+		                        <div class="form-group">
+		                            <label class="col-md-3 control-label">姓名</label>
+		                            <div class="col-md-9">
+		                            	<input id="name" type="text" maxlength=12 v-model="name" class="form-control" />
+		                            </div>
+		                        </div>
+		                        <div class="form-group">
+		                            <label class="col-md-3 control-label" >性别</label>
+		                            <div class="col-md-9">
+		                            	<input type="radio" name="gender" v-model="gender" checked id="g1" value="M"/>男
+		                            	<input type="radio" name="gender" v-model="gender" id="g2" value="F"/>女
+		                            </div>
+		                        </div>
+		                        <div class="form-group">
+		                            <label class="col-md-3 control-label">小区名</label>
+		                            <div class="col-md-9">
+		                            	<input id="estate" type="text" maxlength=30 v-model="estate" class="form-control" />
+		                            </div>
+		                        </div>
+		                        <div class="form-group">
+		                            <label class="col-md-3 control-label">门牌</label>
+		                            <div class="col-md-9">
+		                            	<input id="address" type="text" maxlength=50 v-model="address" class="form-control" />
+		                            </div>
+		                        </div>
+		                        <div class="form-group">
+		                            <label class="col-md-3 control-label">渲染图</label>
+		                            <div class="col-md-9">
+		                            	<input id="url" type="text" maxlength=100 v-model="url" class="form-control" />
+		                            </div>
+		                        </div>
+		                        <div class="form-group">
+		                            <label class="col-md-3 control-label">用户信息</label>
+		                            <div class="col-md-9">
+		                            	<textarea id="info" type="textarea" maxlength=500 v-model="info" class="form-control" ></textarea>
+		                            </div>
+		                        </div>
+							</form>
+							<hr/>
+							<div class="col-md-12 text-center">
+								<button class="btn del-btn btn-lg btn-margin" @click="cancel()">取消</button> 
+								<button class="btn public-btn btn-lg btn-margin" @click="confirm()">确认</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+    	</div>
+    </div>
+	
+    <div class="container">
+    	<h2 v-show='noData'>请稍后，加载中...</h2>
+    	<div class="panel-heading">
+    		<button class="btn public-btn btn-lg pull-left" @click="add()">
+				添加新用户
+			</button>
+
+		    <div class="pull-right">
+		    	<div class="form-inline">
+		    	<!--  
+		    		<div class="pull-left">
+			            <label class="control-label">类型</label>
+                        <select id="selectmenu" class="form-control" v-model="classCode">
+				        	<option value=''>全部</option>
+				            <option v-for="option in classNames" v-bind:value="option">
+								{{ option }}
+							</option>
+						</select>
+			    	</div>
+			    -->
+			        <div class="pull-left">
+			            <div class="form-group">
+                        	<label class="control-label">模糊查询</label>
+							<input class="form-control" type="text" placeholder="姓名/手机号..." v-model='keyword'/>
+                        </div>
+			        </div>
+			        <button class="btn search-btn btn-lg btn-margin pull-left" @click="queryData('暂无符合条件的项目哦~')">查询</button>
+					<button class="btn public-btn btn-lg btn-margin pull-left" @click="exportExcel()">导出</button>
+		    	</div>
+	    	</div>
+		    <div class="clearfix"></div> 
+    	</div>
+    	<div class="row" >
+			<div class="panel-body no-padding">
+				<table class="table table-hover responsive table-wide" >
+		        	<thead>
+			            <tr>
+			              <th>
+			              	<label class="">
+								<input type="checkbox" id="checkAll" @click="selectAll" />
+								<span></span>
+							</label>
+			              </th>
+			              <th>序号</th>
+			              <th>操作</th>
+						  <th>手机</th>
+						  <th>姓名</th>
+			              <th>性别</th>
+						  <th>小区名</th>
+						  <th>门牌</th>
+						  <th>渲染图链接</th>
+						  <th>用户信息</th>
+			            </tr>
+					</thead>
+          
+					<tbody class="text-center">
+						<tr v-for = "(item,index) in totalData">
+			            	<td>
+			            		<label class="">
+									<input type="checkbox" :value='item.id' name="id" >
+									<span></span>
+								</label>
+			            	</td>
+			            	<td>{{(index+1)}}</td>
+			            	<td><a style="cursor:pointer !important;font-size:14px;color:#f59d23;text-align:center;" @click="edit(index)" >编辑</a></td>
+			                <td>{{item.telphone}}</td>
+			                <td>{{item.name}}</td>
+			                <td>{{item.gender | genderFormat() }}</td>
+			                <td>{{item.estate}}</td>
+			                <td>{{item.address}}</td>
+			                <td style="word-wrap:break-word;word-break:break-all;"><a target="_blank" v-bind:href="item.url">{{item.url}}</a></td>
+			                <td>{{item.phase}}</td>
+			                <td style="word-wrap:break-word;word-break:break-all;">{{item.info}}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+    	<!-- 分页    -->
+        <div class="main" align="center" v-show='!noData'>
+            <div id="table-pa" class="pagination"></div>
+        </div>
+        
+	</div>
+</main-layout>

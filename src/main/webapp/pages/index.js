@@ -22,8 +22,6 @@ new Vue({
     },
     methods: {
     	goToHome: function(){
-    		// 为了对应canvas加载不出来，需要刷新当前页
-			sessionStorage.setItem('needRefresh', true);
 			this.$router.push("/");
 		},
 		logout: function(){
@@ -34,7 +32,7 @@ new Vue({
 			// 刷新页面
 			window.location.reload();
 		}
-    }
+    },
 });
 // 页面标题同步
 Vue.directive('title', {
@@ -43,3 +41,8 @@ Vue.directive('title', {
     el.remove()
   }
 })
+
+//性别转换器
+Vue.filter('genderFormat', function(gender){
+    return gender=='F'?'女':'男'	
+});

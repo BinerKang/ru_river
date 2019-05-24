@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<link rel="stylesheet" type="text/css" href="../static/css/styles.css">
+	<link rel="stylesheet" type="text/css" href="../static/css/bootstrap.min.css">
+	<script type="text/javascript" src="../static/js/jquery.min.js"></script>
+	<link rel="shortcut icon" href="../static/images/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="../static/images/favicon.ico" type="image/x-icon">
+	<title>诗尼曼全屋定制</title>
+	<style>
+		.scale img{
+			background-size:contain|cover;
+			width:100%;
+			height: auto;
+		}
+		.floatl {
+		    width: 25%;
+		    float: left;
+		    position: absolute;
+		    left: 30px;
+		    top: 30px;
+		}
+		
+		
+	</style>
+	
+</head>
+
+<body class="body" >
+	<div class="floatl scale">
+        <img src="http://www.snimay.cn/Uploads/Banner/original_img/1517299028.png">
+    </div>
+	<div class="scale">
+		<img src="http://www.snimay.cn/Uploads/Banner/original_img/1515400976.jpg"/>
+	</div>
+	<div class="container">
+		<!-- slogan 宣传语 -->
+		<div align="center"><h4> 品质可比某友,互联网助力,价格实惠</h4>  </div>
+		<!-- 经典案例 -->
+		<div class="row">
+			<div class="col-sm-8 col-sm-offset-2">
+				<p>经典案例</p>
+				<div>
+				<a href="https://yun.kujiale.com/design/3FO45GKWPMHT/show?fromqrcode=true" target="_blank">
+		                	万基名家样板房3-2-西南-王女士
+				</a>
+				<!-- 时间  火热：100-->
+				</div>
+				<div>
+				<a href="https://yun.kujiale.com/design/3FO4F2RAIJO1/show?fromqrcode=true" target="_blank">
+		                	万基名家欧式风格
+				</a>
+				</div>
+				<div>
+				<a href="https://yun.kujiale.com/design/3FO4F3TXIJ98/show?fromqrcode=true" target="_blank">
+		                	万基名家中式风格
+				</a>
+				</div>
+			</div>
+		</div>
+		<div><h5>进店领取精美礼品</h5><h5>地址</h5></div>
+		<!-- 联系栏 -->
+		<div >
+			<h5>留下联络方式，我们会尽快联络您</h5>
+			<div align="" style="width: 60%" >
+		      	<form role="form">
+		      	  <div class="form-group has-feedback" id="mail_div">
+				    <label class="col-sm-2 " for="mail">手机号</label>
+				    <div class="col-sm-10">
+				      <input type="text" class="form-control" 
+				      	placeholder="请输入手机号" maxlength="30">
+				      <span class="glyphicon form-control-feedback"></span> 
+				    </div>
+				  </div>
+				  <div class="form-group has-feedback" id="password_div">
+				    <label class="col-sm-2" for="password">称呼</label>
+				    <div class="col-sm-10">
+				      <input type="password" class="form-control" 
+				      	 placeholder="请输入称呼" maxlength="16">
+				      <span class="glyphicon form-control-feedback"></span> 	
+				    </div>
+				  </div>
+				  
+				  <div class="form-group">
+				  	<div class="row">
+				  		<div class="col-sm-3 col-md-offset-3">
+			   		    	<button type="button" id="submitBtn" class="btn btn-primary" >提交</button>
+			   		    </div>
+				  	</div>
+				  </div>
+				</form>
+			  </div>
+		</div>
+	</div>
+	<div class="text-center" style="margin-bottom:0;margin-top:30px;">
+	  <p><a target="_blank" href="http://beian.miit.gov.cn/"><img src="../static/images/ghs.png"/> &nbsp;粤ICP备18105565号</a></p>
+	</div>
+	<script  type='text/javascript'>
+		$(document).ready(function(){
+		    //定时执行，5秒后执行
+		    //setTimeout(function () { refreshCount(); }, 2000);
+		    function refreshCount() {
+		      $('#MEIQIA-INVITE').show();
+		      t1 = setTimeout(function () { refreshCount2(); }, 5000);
+		    }
+		    
+		    function refreshCount2() {
+		      $('#MEIQIA-INVITE').hide();
+		      qimoChatClick();
+		    }  
+		 }); 
+		
+		$("#submitBtn").on("click", function(){
+			alert("谢谢您的信任，我们会尽快联系您");
+		});
+		
+	</script>
+</body>
