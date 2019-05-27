@@ -31,9 +31,13 @@ public class Customer extends BaseModel implements Serializable {
 	// 客户信息
 	private String info;
 	
+	private Boolean deleted;
+	
 	private Integer pageSize;
     
     private Integer pageNo;
+    
+    private String keyword;
 	
 	public Long getId() {
 		return id;
@@ -100,6 +104,18 @@ public class Customer extends BaseModel implements Serializable {
 	}
 	public void setPageNo(Integer pageNo) {
 		this.pageNo = pageNo;
+	}
+	public Boolean getDeleted() {
+		return deleted;
+	}
+	public void setDeleted(Boolean deleted) {
+		this.deleted = deleted;
+	}
+	public String getKeyword() {
+		return keyword;
+	}
+	public void setKeyword(String keyword) {
+		this.keyword = keyword;
 	}
 	
 }

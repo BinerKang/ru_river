@@ -35,6 +35,7 @@ public class Constants {
 	//验证邮件模板
 	public static String VERIFY_MAIL_TITLE;
 	public static String VERIFY_MAIL_CONTENT;
+	public static String AD_MSG_CONTENT;
 	//MaxMind 数据库GeoLite地址
 	public static String geoLitePath;
 	/**
@@ -77,6 +78,7 @@ public class Constants {
 		configProperties = getProperties("/template.properties");
 		VERIFY_MAIL_TITLE = configProperties.getProperty("verify.mail.title").trim();
 		VERIFY_MAIL_CONTENT = configProperties.getProperty("verify.mail.content").trim();
+		AD_MSG_CONTENT = configProperties.getProperty("ad.msg.content").trim();
 		
 	}
 	

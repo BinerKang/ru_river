@@ -31,11 +31,11 @@ module.exports = {
 			if (index == 0) {
 				this.$router.push("/home/");
 			} else if (index == 1) {
-				this.$router.push("/home/pinball");
+				this.$router.push("/home/contact");
 			} else if (index == 2) {
-				this.$router.push("/home/trick");
+				this.$router.push("/home/sendRecord");
 			} else if (index == 3){
-				this.$router.push("/home/broadcast");
+				this.$router.push("/home/browserRecord");
 			}
 		},
 	}

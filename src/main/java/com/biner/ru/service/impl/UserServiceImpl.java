@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.alibaba.fastjson.JSONObject;
 import com.biner.ru.common.Constants;
 import com.biner.ru.common.MapResult;
 import com.biner.ru.common.RedisKeyConstants;
@@ -73,7 +74,7 @@ public class UserServiceImpl implements UserService {
 			emailUtils.sendEmail(mail, Constants.VERIFY_MAIL_TITLE, content);
 		}
 		// 将session放入redis
-		RedisKeyConstants.addTokenToRedis(sessionId, String.valueOf(u.getId()));
+		RedisKeyConstants.addTokenToRedis(sessionId, JSONObject.toJSONString(u));
 		if (StringUtils.isNotEmpty(score)) {
 			gameService.recordScore(score, String.valueOf(u.getId()));
 		}
@@ -95,7 +96,7 @@ public class UserServiceImpl implements UserService {
 			return new MapResult(CodeMsg.FAIL, "账号或密码错误");
 		}
 		// 将session放入redis
-		RedisKeyConstants.addTokenToRedis(sessionId, String.valueOf(u.getId()));
+		RedisKeyConstants.addTokenToRedis(sessionId, JSONObject.toJSONString(u));
     	if (StringUtils.isNotEmpty(score)) {
 			gameService.recordScore(score, String.valueOf(u.getId()));
 		}
@@ -130,7 +131,7 @@ public class UserServiceImpl implements UserService {
 			u = userMapper.selectOne(u);
 		}
 		// 将session放入redis
-		RedisKeyConstants.addTokenToRedis(sessionId, String.valueOf(u.getId()));
+		RedisKeyConstants.addTokenToRedis(sessionId, JSONObject.toJSONString(u));
 		MapResult result = new MapResult();
 		Map<String, Object> data = new HashMap<String, Object>();
 		data.put("userInfo", u);

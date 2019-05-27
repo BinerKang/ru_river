@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.biner.ru.mapper.BrowseRecordMapper">
+
+	<select id="getBrowseRecords" resultType="com.biner.ru.model.BrowseRecord">
+		SELECT
+			id,
+			INET_NTOA(ip) AS ip,
+			telphone,
+			DATE_FORMAT(created_time, '%Y-%m-%d %H:%i:%s') AS createdTime,
+			DATE_FORMAT(updated_time, '%Y-%m-%d %H:%i:%s') AS updatedTime,
+			created_by AS createdBy,
+			updated_by AS updatedBy
+		FROM
+			t_browse_record
+		WHERE 1 = 1 
+		<include refid="commonQuery"/>
+		ORDER BY updated_time DESC,telphone 
+		LIMIT #{item.pageSize} OFFSET #{item.pageNo}
+	</select>
+	
+	<select id="getBrowseRecordsCount" resultType="java.lang.Integer">
+		SELECT
+			count(1)
+		FROM
+			t_browse_record
+		WHERE 1 = 1
+		<include refid="commonQuery"/>
+	</select>
+	
+	<sql id="commonQuery">
+		<if test="null != item.keyword"> 
+		AND (
+			telphone LIKE "%"#{item.keyword}"%" OR 
+			INET_NTOA(ip) LIKE "%"#{item.keyword}"%"
+			) 
+		</if>
+	</sql>
+	
+	<insert id="save" keyProperty="item.id" useGeneratedKeys="true">
+		INSERT INTO t_browse_record 
+		(ip, telphone, updated_time, updated_by, created_time, created_by)
+		VALUES
+		(INET_ATON(#{item.ip}), #{item.telphone}, now(), #{item.updatedBy}, now(), #{item.createdBy})
+	</insert>
+
+</mapper>

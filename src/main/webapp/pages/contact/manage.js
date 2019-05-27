@@ -12,17 +12,15 @@ module.exports = {
 			totalPage: 0,
 			tipBox: false,
 			keyword: null,
+			isContacted: '',
 			
 			id: null,
 			telphone: null,
-			name: null,
+			call: null,
 			gender: null,
-			estate: null,
-			address: null,
-			url: null,
-			phase: null,
+			ip: null,
 			info: null,
-			
+			contactedTime: null
 		};
 	},
 	
@@ -43,8 +41,11 @@ module.exports = {
 		loadPage: function() {
 			var self = this;
 			var keyword = self.keyword?self.keyword:null;
-			var params = {keyword: self.keyword};
-			Najax.post('customer/getCustomersCount', params).then(function(res){
+			var params = {
+				keyword: self.keyword,
+				isContacted: self.isContacted
+			};
+			Najax.post('contact/getContactsCount', params).then(function(res){
 				self.totalPage = res.result.data.totalPage;
 				self.noData = false;
 				self.initPage();
@@ -74,47 +75,23 @@ module.exports = {
 			}
 		},
 		
-
-		sendMsg: function() {
-			var $che = $("tbody input:checked");
-			if($che.length == 0) {
-				alert("请至少选择一个用户");
-				return;
-			}
-			var ids = [];
-			for(var i=0;i<$che.length;i++){
-				ids.push($che[i].value);
-			}
-			var params = {
-				ids: ids.join(",")
-			}
-			Najax.post('customer/sendMsg', params).then(function(res){
-				alert(res.result.msg);
-			}).catch(function(error){
-				console.log(error);
-			});
-		},
-		
 		//赋值给弹出框
-		assign: function(customer) {
+		assign: function(contact) {
 			var self = this
-			self.id = customer.id
-			self.telphone = customer.telphone
-			self.name = customer.name
-			self.gender = customer.gender
-			self.estate = customer.estate
-			self.address = customer.address
-			self.url = customer.url
-			self.phase = customer.phase
-			self.info = customer.info
+			self.id = contact.id
+			self.ip = contact.ip
+			self.telphone = contact.telphone
+			self.call = contact.call
+			self.gender = contact.gender
+			self.info = contact.info
 		},
 		
 		cancel: function() {
-			$("#customer_cancel_button").click();
+			$("#contact_cancel_button").click();
 		},
 		
 		confirm: function() {
-			$("#customer_confirm_button").click();
+			$("#contact_confirm_button").click();
 		},
 		
 		checkParams: function() {
@@ -134,27 +111,41 @@ module.exports = {
 			return flag;
 		},
 		
+		markContact: function(id) {
+			var self = this;
+			var params = {
+				id: id,
+				contactedTime: 'now'
+			};
+			Najax.post('contact/updateContact', params).then(function(res){
+				if (res.result.code == 0 ) {
+					//刷新
+					self.loadPage();
+				}
+				alert(res.result.msg);
+			}).catch(function(error){
+				console.log(error);
+			});
+		},
+		
 		addOrUpdate: function() {
 			var self = this;
 			if(!self.checkParams()){
 				return;
 			};
-			var url = "saveCustomer";
+			var url = "saveContact";
 			if(self.id) {
-				url = "updateCustomer";
+				url = "updateContact";
 			}
 			var params = {
 				id: self.id,
 				telphone: self.telphone,
-				name: self.name,
+				call: self.call,
 				gender: self.gender,
-				estate: self.estate,
-				address: self.address,
-				url: self.url,
-				phase: self.phase,
 				info: self.info,
+				contactedTime: self.contactedTime
 			};
-			Najax.post('customer/'+url, params).then(function(res){
+			Najax.post('contact/'+url, params).then(function(res){
 				if (res.result.code == 0 ) {
 					//关闭弹窗
 					self.cancel();
@@ -186,14 +177,14 @@ module.exports = {
 			self.openDailog();
 		},
 		
-		deleteCustomer: function(index) {
+		deleteContact: function(index) {
 			var flag = confirm("确认删除吗？");
 			if (!flag) {
 				return;
 			}
 			var self = this;
 			var params = {id: self.totalData[index].id};
-			Najax.post('customer/deleteCustomer', params).then(function(res){
+			Najax.post('contact/deleteContact', params).then(function(res){
 				alert(res.result.msg);
 				//刷新
 				self.loadPage();
@@ -205,13 +196,13 @@ module.exports = {
 		openDailog: function() {
 			var self = this;
 			//弹出框  初始化
-			$("#dialogCustomer").dialog({
+			$("#dialogContact").dialog({
 				autoOpen: false,
 				width: 496,
 				buttons: [
 					{
 						 text: "确定",
-						 id: "customer_confirm_button",
+						 id: "contact_confirm_button",
 						 style: "display:none",
 						 click: function() {
 							self.addOrUpdate();
@@ -219,7 +210,7 @@ module.exports = {
 					},
 					{
 							text: "取消",
-							id: "customer_cancel_button",
+							id: "contact_cancel_button",
 							style: "display:none",
 							click: function() {
 							$( this ).dialog( "close" );
@@ -229,7 +220,7 @@ module.exports = {
 				]
 			});
 			$('.mask').show();
-			$("#dialogCustomer").dialog("open");
+			$("#dialogContact").dialog("open");
 		},
 		
 		//分页， 在分页的footer里面插入页数并调用下面的函数
@@ -250,8 +241,9 @@ module.exports = {
 				if(self.keyword) {
 					params.keyword = self.keyword;
 				}
-				Najax.post('customer/getCustomers', params).then(function(res){
-					self.totalData = res.result.data.customers;
+				params.isContacted = self.isContacted;
+				Najax.post('contact/getContacts', params).then(function(res){
+					self.totalData = res.result.data.contacts;
 				}).catch(function(error){
 					console.log(error);
 				});

@@ -63,9 +63,6 @@ public class CipherInterceptor implements HandlerInterceptor {
 		StringBuffer buff = new StringBuffer();
 		for (Map.Entry<String, String> entry : returnMap.entrySet()){  
 			String val = entry.getValue();
-			if(val.length() >200) {
-				val = val.substring(0, 200);
-			}
 			buff.append(" "+ entry.getKey()+"=" + val + " ");
 		}  
 		logger.info(request.getRequestURI() + "" + buff);

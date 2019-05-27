@@ -1,0 +1,65 @@
+<main-layout>
+	<link rel="stylesheet" href="pages/customer/manage.css">
+	<div hidden="true" v-title>短信点击记录</div>
+	
+    <div class="container-fluid">
+    	<h2 v-show='noData'>请稍后，加载中...</h2>
+    	<div class="panel-heading">
+			
+		    <div class="pull-right">
+		    	<div class="form-inline">
+			        <div class="pull-left">
+			            <div class="form-group">
+                        	<label class="control-label">模糊查询</label>
+							<input class="form-control" type="text" placeholder="IP/手机号..." v-model='keyword'/>
+                        </div>
+			        </div>
+			        <button class="btn search-btn btn-lg btn-margin pull-left" @click="loadPage()">查询</button>
+			        <button class="btn public-btn btn-lg btn-margin pull-left" @click="reset()">重置</button>
+					<button class="btn public-btn btn-lg btn-margin pull-left" @click="exportExcel()">导出</button>
+		    	</div>
+	    	</div>
+		    <div class="clearfix"></div> 
+    	</div>
+    	<div class="row" >
+			<div class="panel-body no-padding">
+				<table class="table table-hover responsive table-wide" >
+		        	<thead>
+			            <tr>
+			              <th>
+			              	<label class="">
+								<input type="checkbox" id="checkAll" @click="selectAll" />
+								<span></span>
+							</label>
+			              </th>
+			              <th>序号</th>
+						  <th style="min-width:100px">手机</th>
+						  <th style="min-width:100px">IP</th>
+						  <th style="min-width:100px">点击时间</th>
+			            </tr>
+					</thead>
+          
+					<tbody class="text-center">
+						<tr v-for = "(item,index) in totalData">
+			            	<td>
+			            		<label class="">
+									<input type="checkbox" :value='item.id' @click="selectOne" >
+									<span></span>
+								</label>
+			            	</td>
+			            	<td>{{(index+1)}}</td>
+			                <td>{{item.telphone}}</td>
+			                <td>{{item.ip}}</td>
+							<td>{{item.updatedTime}}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+    	<!-- 分页    -->
+        <div class="main" align="center" v-show='!noData'>
+            <div id="table-pa" class="pagination"></div>
+        </div>
+        
+	</div>
+</main-layout>

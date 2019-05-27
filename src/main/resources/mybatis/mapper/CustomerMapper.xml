@@ -20,7 +20,8 @@
 			updated_by AS updatedBy
 		FROM
 			t_customer_info
-		WHERE 1 = 1
+		WHERE 1 = 1 AND deleted = 0
+		<include refid="commonQuery"/>
 		ORDER BY updated_time DESC
 		LIMIT #{item.pageSize} OFFSET #{item.pageNo}
 	</select>
@@ -30,17 +31,56 @@
 			count(1)
 		FROM
 			t_customer_info
-		WHERE 1 = 1
+		WHERE 1 = 1 AND deleted = 0
+		<include refid="commonQuery"/>
 	</select>
+	
+	<select id="queryTelphones" resultType="java.lang.String">
+		SELECT
+			telphone
+		FROM
+			t_customer_info
+		WHERE id IN 
+		<foreach collection="ids" index="index" item="id" open="(" separator="," close=")">
+         	#{id}
+    	</foreach>
+	</select>
+	
+	<sql id="commonQuery">
+		<if test="null != item.keyword"> 
+		AND (
+			telphone LIKE "%"#{item.keyword}"%" OR 
+			name LIKE "%"#{item.keyword}"%" OR 
+			estate LIKE "%"#{item.keyword}"%" OR 
+			address LIKE "%"#{item.keyword}"%" OR 
+			url LIKE "%"#{item.keyword}"%" 
+			) 
+		</if>
+	</sql>
 	
 	<insert id="save" keyProperty="item.id" useGeneratedKeys="true">
 		INSERT INTO t_customer_info 
-		(telphone, name, gender, estate, address, url, phase, info, updated_time, 
+		(telphone, name, gender, estate, address, url, phase, info, deleted, updated_time, 
 			updated_by, created_time, created_by)
 		VALUES
 		(#{item.telphone}, #{item.name}, #{item.gender}, #{item.estate}, #{item.address},
-		 #{item.url}, #{item.phase}, #{item.info}, now(), 0, now(), 0)
+		 #{item.url}, #{item.phase}, #{item.info}, 0, now(), #{item.updatedBy}, now(), #{item.createdBy})
 	</insert>
 
+	<insert id="update" >
+		UPDATE t_customer_info SET
+		 <if test="null != item.telphone"> telphone = #{item.telphone},</if>
+		 <if test="null != item.name"> name = #{item.name},</if>
+		 <if test="null != item.gender"> gender = #{item.gender},</if>
+		 <if test="null != item.estate"> estate = #{item.estate},</if>
+		 <if test="null != item.address"> address = #{item.address},</if>
+		 <if test="null != item.url"> url = #{item.url},</if>
+		 <if test="null != item.phase"> phase = #{item.phase},</if>
+		 <if test="null != item.info"> info = #{item.info},</if>
+		 <if test="null != item.deleted"> deleted = #{item.deleted},</if>
+		 updated_time = now(),
+		 updated_by = #{item.updatedBy}
+		WHERE id = #{item.id}
+	</insert>
 	
 </mapper>

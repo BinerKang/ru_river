@@ -11,4 +11,6 @@ public interface CustomerMapper extends BaseMapper<Customer> {
 	List<Customer> getCustomers(@Param("item")Customer obj);
 	
 	int getCustomersCount(@Param("item")Customer obj);
+	
+	List<String> queryTelphones(@Param("ids")String[] ids);
 }

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.biner.ru.mapper.ContactMapper">
+
+	<select id="getContacts" resultType="com.biner.ru.model.Contact">
+		SELECT
+			id,
+			INET_NTOA(ip) AS ip,
+			telphone,
+			`call`,
+			gender,
+			info,
+			DATE_FORMAT(contacted_time, '%Y-%m-%d %H:%i:%s') AS contactedTime,
+			DATE_FORMAT(created_time, '%Y-%m-%d %H:%i:%s') AS createdTime,
+			DATE_FORMAT(updated_time, '%Y-%m-%d %H:%i:%s') AS updatedTime,
+			created_by AS createdBy,
+			updated_by AS updatedBy
+		FROM
+			t_contact_info
+		WHERE 1 = 1 
+		<include refid="commonQuery"/>
+		ORDER BY updated_time,telphone DESC
+		LIMIT #{item.pageSize} OFFSET #{item.pageNo}
+	</select>
+	
+	<select id="getContactsCount" resultType="java.lang.Integer">
+		SELECT
+			count(1)
+		FROM
+			t_contact_info
+		WHERE 1 = 1
+		<include refid="commonQuery"/>
+	</select>
+	
+	<sql id="commonQuery">
+		<if test="null != item.keyword"> 
+		AND (
+			telphone LIKE "%"#{item.keyword}"%" OR 
+			`call` LIKE "%"#{item.keyword}"%" OR 
+			INET_NTOA(ip) LIKE "%"#{item.keyword}"%"
+			) 
+		</if>
+		<choose>
+		    <when test="item.contactedTime == 'Y'.toString() ">
+		       AND contacted_time IS NOT NULL
+		    </when>
+		    <when test="item.contactedTime == 'N'.toString() ">
+		       AND contacted_time IS NULL
+		    </when>
+		</choose>
+	</sql>
+	
+	<insert id="save" keyProperty="item.id" useGeneratedKeys="true">
+		INSERT INTO t_contact_info 
+		(ip, telphone, `call`, gender, contacted_time, info, updated_time, 
+			updated_by, created_time, created_by)
+		VALUES
+		(INET_ATON(#{item.ip}), #{item.telphone}, #{item.call}, #{item.gender}, 
+		 #{item.contactedTime}, #{item.info}, now(), #{item.updatedBy}, now(), #{item.createdBy})
+	</insert>
+
+	<insert id="update" >
+		UPDATE t_contact_info SET
+		 <if test="null != item.ip"> ip = INET_ATON(#{item.ip}),</if>
+		 <if test="null != item.telphone"> telphone = #{item.telphone},</if>
+		 <if test="null != item.call"> `call` = #{item.call},</if>
+		 <if test="null != item.gender"> gender = #{item.gender},</if>
+		 <if test="null != item.info"> info = #{item.info},</if>
+		 <if test="null != item.contactedTime"> contacted_time = now(),</if>
+		 updated_time = now(),
+		 updated_by = #{item.updatedBy}
+		WHERE id = #{item.id}
+	</insert>
+	
+</mapper>

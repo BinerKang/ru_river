@@ -44,5 +44,13 @@ Vue.directive('title', {
 
 //性别转换器
 Vue.filter('genderFormat', function(gender){
-    return gender=='F'?'女':'男'	
+	if(!gender) {
+		return '';
+	}
+    return gender=='F'?'女士':'先生';
+});
+
+//性别转换器
+Vue.filter('dateOnly', function(date){
+    return date.substring(0, 10);	
 });

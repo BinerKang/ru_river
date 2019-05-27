@@ -29,7 +29,7 @@ public class SessionInterceptor implements HandlerInterceptor {
     		ResponseUtil.outputJSONResponseEncrypt(request, response, new MapResult(CodeMsg.TOKEN_EXPIRED, msg));
 			return false;
     	} else {// 更新失效时间
-    		ParamThreadLocal.get().put("userId", value);
+    		ParamThreadLocal.get().put("userInfo", value);
     		RedisClient.setExpire(tokenKey, Constants.WEB_EXPIRE_MINS * 60);
     		return true;
     	}

@@ -7,6 +7,18 @@ module.exports = [
         		path:"",
         		component: require("./customer/manage")
         	},
+        	{
+        		path:"contact",
+        		component: require("./contact/manage")
+        	},
+        	{
+        		path:"sendRecord",
+        		component: require("./sendRecord/manage")
+        	},
+        	{
+        		path:"browserRecord",
+        		component: require("./browseRecord/manage")
+        	},
         	// 404
             {
                 path: '*', 

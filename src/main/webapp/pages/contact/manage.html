@@ -1,10 +1,10 @@
 <main-layout>
 	<link rel="stylesheet" href="pages/customer/manage.css">
-	<div hidden="true" v-title>客户信息</div>
+	<div hidden="true" v-title>客户主动上报信息</div>
 	
 	<!-- 弹框 -->
 	<div class="mask hidden">
-		<div id="dialogCustomer" title="客户信息" style="padding: 0;overflow: visible">
+		<div id="dialogContact" title="客户主动上报信息" style="padding: 0;overflow: visible">
 			<div class="row">
 				<div class="col-md-12">
 					<div class="panel">
@@ -13,13 +13,13 @@
 		                        <div class="form-group">
 		                            <label class="col-md-3 control-label">手机*</label>
 		                            <div class="col-md-9">
-		                            	<input type="text" maxlength=16 id="telphone" v-model="telphone" class="form-control"/>
+		                            	<input type="text" readonly="readonly"  maxlength=16 id="telphone" v-model="telphone" class="form-control"/>
 		                            </div>
 		                        </div>
 		                        <div class="form-group">
-		                            <label class="col-md-3 control-label">姓名</label>
+		                            <label class="col-md-3 control-label">称呼</label>
 		                            <div class="col-md-9">
-		                            	<input id="name" type="text" maxlength=12 v-model="name" class="form-control" />
+		                            	<input id="name" type="text" maxlength=12 v-model="call" class="form-control" />
 		                            </div>
 		                        </div>
 		                        <div class="form-group">
@@ -30,25 +30,13 @@
 		                            </div>
 		                        </div>
 		                        <div class="form-group">
-		                            <label class="col-md-3 control-label">小区名</label>
+		                            <label class="col-md-3 control-label">IP</label>
 		                            <div class="col-md-9">
-		                            	<input id="estate" type="text" maxlength=30 v-model="estate" class="form-control" />
+		                            	<input id="estate" type="text" readonly="readonly" maxlength=30 v-model="ip" class="form-control" />
 		                            </div>
 		                        </div>
 		                        <div class="form-group">
-		                            <label class="col-md-3 control-label">门牌</label>
-		                            <div class="col-md-9">
-		                            	<input id="address" type="text" maxlength=50 v-model="address" class="form-control" />
-		                            </div>
-		                        </div>
-		                        <div class="form-group">
-		                            <label class="col-md-3 control-label">渲染图</label>
-		                            <div class="col-md-9">
-		                            	<input id="url" type="text" maxlength=100 v-model="url" class="form-control" />
-		                            </div>
-		                        </div>
-		                        <div class="form-group">
-		                            <label class="col-md-3 control-label">用户信息</label>
+		                            <label class="col-md-3 control-label">备注</label>
 		                            <div class="col-md-9">
 		                            	<textarea id="info" type="textarea" maxlength=500 v-model="info" class="form-control" ></textarea>
 		                            </div>
@@ -69,31 +57,19 @@
     <div class="container-fluid">
     	<h2 v-show='noData'>请稍后，加载中...</h2>
     	<div class="panel-heading">
-    		<button class="btn public-btn btn-lg pull-left" @click="add()">
-				添加新用户
-			</button>
-
-			<button style="margin-left:20px" class="btn public-btn btn-lg pull-left" @click="sendMsg()">
-				发短信
-			</button>
-
+			
 		    <div class="pull-right">
 		    	<div class="form-inline">
-		    	<!--  
-		    		<div class="pull-left">
-			            <label class="control-label">类型</label>
-                        <select id="selectmenu" class="form-control" v-model="classCode">
-				        	<option value=''>全部</option>
-				            <option v-for="option in classNames" v-bind:value="option">
-								{{ option }}
-							</option>
-						</select>
-			    	</div>
-			    -->
 			        <div class="pull-left">
+				    	<label class="control-label">是否联络</label>
+		                <select id="selectmenu" class="form-control" @change="loadPage()" v-model="isContacted">
+				        	<option value=''>全部</option>
+				            <option value='Y'>是</option>
+				            <option value='N'>否</option>
+						</select>
 			            <div class="form-group">
                         	<label class="control-label">模糊查询</label>
-							<input class="form-control" type="text" placeholder="姓名/手机号..." v-model='keyword'/>
+							<input class="form-control" type="text" placeholder="称呼/手机号..." v-model='keyword'/>
                         </div>
 			        </div>
 			        <button class="btn search-btn btn-lg btn-margin pull-left" @click="loadPage()">查询</button>
@@ -117,12 +93,12 @@
 			              <th>序号</th>
 			              <th style="min-width:60px">操作</th>
 						  <th style="min-width:100px">手机</th>
-						  <th style="min-width:80px">姓名</th>
+						  <th style="min-width:80px">称呼</th>
 			              <th style="min-width:60px">性别</th>
-						  <th style="min-width:100px">小区名</th>
-						  <th style="min-width:100px">门牌</th>
-						  <th>渲染图链接</th>
-						  <th>用户信息</th>
+						  <th style="min-width:100px">IP</th>
+						  <th style="min-width:100px">备注</th>
+						  <th style="min-width:100px">是否联络</th>
+						  <th style="min-width:100px">联络时间</th>
 						  <th style="min-width:100px">编辑时间</th>
 						  <th style="min-width:100px">添加时间</th>
 			            </tr>
@@ -139,15 +115,15 @@
 			            	<td>{{(index+1)}}</td>
 			            	<td style="word-wrap:break-word;word-break:break-all;">
 			            		<a style="cursor:pointer !important;font-size:14px;color:#f59d23;text-align:center;display:block" @click="edit(index)" >编辑</a>
-			            		<!-- <a style="cursor:pointer !important;font-size:14px;color:#f59d23;text-align:center;" @click="deleteCustomer(index)" >删除</a> -->
+			            		<a v-show="!item.contactedTime" style="cursor:pointer !important;font-size:14px;color:#f59d23;text-align:center;display:block" @click="markContact(item.id)" >标记为联络</a>
 			            	</td>
 			                <td>{{item.telphone}}</td>
-			                <td>{{item.name}}</td>
+			                <td>{{item.call}}</td>
 			                <td>{{item.gender | genderFormat() }}</td>
-			                <td>{{item.estate}}</td>
-			                <td>{{item.address}}</td>
-			                <td style="word-wrap:break-word;word-break:break-all;"><a target="_blank" v-bind:href="item.url">{{item.url}}</a></td>
+			                <td>{{item.ip}}</td>
 			                <td style="word-wrap:break-word;word-break:break-all;">{{item.info}}</td>
+			                <td>{{item.contactedTime?'是':'否'}}</td>
+			                <td>{{item.contactedTime}}</td>
 							<td>{{item.updatedTime | dateOnly() }}</td>
 							<td>{{item.createdTime | dateOnly() }}</td>
 						</tr>
