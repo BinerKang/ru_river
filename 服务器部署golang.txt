@@ -1,0 +1,63 @@
+服务器系统Centos7.6
+
+Ningx：
+==============================
+安装
+sudo yum install -y nginx
+启动Nginx并设置开机自动运行
+sudo systemctl start nginx.service
+sudo systemctl enable nginx.service
+配置文件地址
+/etc/nginx/nginx.conf
+==============================
+
+
+Mysql安装
+==============================
+wget -i -c http://dev.mysql.com/get/mysql57-community-release-el7-10.noarch.rpm
+
+yum -y install mysql57-community-release-el7-10.noarch.rpm
+
+yum -y install mysql-community-server
+# 启动
+systemctl start mysqld.service
+# 查看状态
+systemctl status mysqld.service
+
+# 查看root密码
+grep "password" /var/log/mysqld.log
+
+# 进入mssql
+mysql -uroot -p
+
+# 更换密码
+ALTER USER 'root'@'localhost' IDENTIFIED BY 'Ru@river1314#$';
+修改为外网访问
+use mysql;
+update user set host='%' where user='root'; 
+flush privileges;
+
+# 移除仓库
+yum -y remove mysql57-community-release-el7-10.noarch
+
+报错查看日志：
+ vi /var/log/mysqld.log
+==============================
+
+SSL证书letsencrypt 
+==============================
+激活epel 
+sudo yum install epel-release
+可以选操作系统和服务器 用centos6的，centos7 doesn't work
+https://certbot.eff.org/lets-encrypt/centos6-nginx
+**如果出问题试着运行下面的命令
+pip install --upgrade --force-reinstall 'requests==2.6.0'
+
+Nginx重定向
+location / {
+	proxy_pass http://127.0.0.1:1323;
+}
+==============================
+
+
+
